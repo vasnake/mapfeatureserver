@@ -1,30 +1,30 @@
 mapfeatureserver
 ================
 
-WSGI (Python, Flask) service for ArcGIS Feature Layer REST replacement
+WSGI (Python, Flask) service for ArcGIS Feature Layer REST replacement/implementation
 
-## Что это
+## About
 
-Mapfeatureserver это веб-сервис, написанный на Python (WSGI, Flask) с целью имитации ArcGIS FeatureServer ([Feature Service – Layer aka FeatureLayer](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)) без привлечения закрытого и дорогого софта.
+Mapfeatureserver is a web service written on Python (WSGI, Flask) and it can act like ArcGIS FeatureServer ([Feature Service Layer aka FeatureLayer](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)) without ArcGIS.
 
-На данном этапе проект находится в состоянии Proof Of Concept, то есть черновика, позволяющего определить применимость идеи и направления развития.
+Here we have Proof Of Concept, a sketchy draft for evaluation of idea.
 
-Сервис умеет отвечать пока только на два вида запросов:
+For now, service can serve two kind of requests:
 
-1. метаданные слоя [http://&lt;featureservice-url&gt;/&lt;layerId&gt;](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)
-2. выборка объектов прямоугольником [http://&lt;featurelayer-url&gt;/query](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html)
+1. layer metadata [http://&lt;featureservice-url&gt;/&lt;layerId&gt;](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)
+2. layer data query by box [http://&lt;featurelayer-url&gt;/query](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html)
 
-Для выборки имеет значение только ограниченный набор параметров.
-Пример: `http://service/0/query?geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}&outSR=102100`
+For data query only subset of arguments be parsed.
+E.g: `http://service/0/query?geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}&outSR=102100`
 
-Этих два вида запросов уже позволяют использовать слои сервиса в программах типа [Картобонус](http://www.allgis.org/cartobonus/help/) основанных на ArcGIS Silverlight API. Использование ограничивается добавлением слоя в карту и просмотром обьектов и их атрибутов на карте и в формах отображения атрибутов.
-Фильтрация и редактирование записей пока не реализованы.
-Вероятнее всего, в других API от Esri слои тоже могут использоваться, но точно не знаю, не проверял.
+Those two type of requests allow using service layers in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/) already. This web maps  builded using ArcGIS Silverlight API. By word "using" I meant actions like "add layer to map", "view feature attributes" in popups and table.
+Functions like records filtering, editing, updating and creating features will be availible later.
+You can use MFS layers in other Esri API maybe, I didn't test.
 
-## Как использовать
+## How to use
 
-Для запуска сервиса нужно сделать следующее:
-Установить Python 2.7 и необходимые библиотеки, например для MS Windows
+For starting service you need perform next steps:
+Install Python 2.7 and libraries, e.g. for MS Windows
 
 ```
 set path=%path%;c:\d\Python27;c:\d\Python27\Scripts
@@ -33,21 +33,21 @@ pip install Flask flask-login blinker psycopg2 simplejson
 
 [psycopg2 for Windows](http://www.stickpeople.com/projects/python/win-psycopg/)
 
-запустить приложение Flask
+Start Flask application
 
 ```
 pushd mapfeatureserver\wsgi
 python mapfs_controller.py
 ```
 
-Сервис доступен по URL
+Service URL must be
 `http://localhost:5000/`
-На странице вы увидите ссылки на тестовые слои, эти ссылки работать не будут. Убрать их можно отредактировав файл
+Open that page in brawser and you will see links to test layers, they shouldn't work. Remove those links by editing file
 `mapfeatureserver\wsgi\templates\servlets.html`
 
-Для добавления слоя к сервису нужно сделать следующее:
-* обеспечить доступ к БД PostGIS, например установив [СУБД](http://postgis.net/windows_downloads) на свой хост;
-* загрузить в БД shp-файл с данными, по примеру
+If you want to create new layer, you need perform next steps:
+* get access to PostGIS DB, for example by installing [PostGIS](http://postgis.net/windows_downloads) on your host;
+* load some shape file (shp) to DB, like this:
 
 ```
 set path=%path%;c:\Program Files\PostgreSQL\9.0\bin
@@ -56,35 +56,39 @@ shp2pgsql.exe -d -I -s 4326 -W cp1251 flyzone.shp mfsdata.flyzone > flyzone.dump
 psql -f flyzone.dump.sql postgisdb mfs
 ```
 
-* зарегистрировать слой в сервисе отредактировав файл
+* write layer info to config file
 `mapfeatureserver\config\layers.config.ini`
-ориентируясь на приведенные в нем примеры.
+for help look example config records.
 
-* Создать файл (самая сложная и трудоемкая часть)
+* Create layer meta data file, this is hardest thing to do
 `mapfeatureserver\config\layer.<layer id>.config.json`
-Проще всего взять за основу выдачу аналогичной службы ArcGIS Feature Layer, по примеру
+For help you can copy meta data from ArcGIS Feature Layer configured as you wish. URL should be like this
 `http://testags/arcgis/rest/services/flyzone/FeatureServer/2?f=pjson`
-и использовать служебную страницу сервиса, по примеру
+also, you should use special page from MFS, e.g.
 `http://localhost:5000/admin/dsn/flyzone?oidfield=gid&geomfield=geom`
 
-Созданный слой можно использовать в картприложениях типа [Картобонус](http://www.allgis.org/cartobonus/help/), добавляя его в карту как обычный FeatureLayer ArcGIS `http://hostname:5000/<layer id>`
+You can use created layer in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/) by adding it to map as regular ArcGIS FeatureLayer `http://hostname:5000/<layer id>`
 
-## Планы по развитию
+## TODO
 
-* Код: упаковать модули в пакет, может быть Python egg.
-* Слои: алиасы полей брать из метаданных.
-* Слои: реализовать работу функции Identify (Инфо в Картобонус).
-* Слои: реализовать функцию редактирования фичей — атрибутики и геометрии.
-* Слои: реализовать фильтрацию записей.
-* Слои: реализовать ограничение списка полей в выдаче.
-* Код: покрыть код тестами и использовать mock вместо реальной БД.
-* Платформа: сделать версию для MySQL.
+* Combine Python modules to package, maybe egg.
+* Aliases for layer fields should be readed from layer meta data.
+* [Identify function](http://resources.arcgis.com/en/help/rest/apiref/identify.html) Инфо в Картобонус.
+* Edit function for features [Add Features, Update Features, Delete Features, Apply Edits](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html).
+* Records filtering - [query 'where' clause](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
+* Features fields list filtering - [query 'outFields' parameter](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
+* Source code unittesting and useing mock instead of actual DB.
+* Write adapter for layers in MySQL.
 
-## Лицензия и ограничения
+## License and restrictions
 
-Код предоставляется и распространяется под лицензией [GNU](http://www.gnu.org/licenses/gpl.html).
+Mapfeatureserver is free software: you can redistribute it and/or modify
+it under the terms of the [GNU General Public License](http://www.gnu.org/licenses/gpl.html) as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
 Ограничения: необходим доступ к БД PostGIS; файл метаданных слоя приходится создавать вручную; из всех видов запросов указанных в спецификации Esri, работает только один — на выборку объектов прямоугольником.
+Restrictions: for this release you need access to PostGIS DB; you have to create layer meta data file by hand; from Esri specs only one type of query realized - select features by box.
 
 Copyright 2012-2013 Valentin Fedulov
 mailto:vasnake@gmail.com
