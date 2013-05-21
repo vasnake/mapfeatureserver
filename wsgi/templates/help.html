@@ -1,0 +1,37 @@
+{% extends "common.layout.html" %}
+
+<!--
+# -*- mode: html; coding: utf-8 -*-
+# (c) Valik mailto:vasnake@gmail.com
+-->
+
+{% block sidemenu %}
+	<li><a href="{{ url_for('mainPage') }}">MFS endpoint</a></li>
+	<li class="active"><a href="{{ url_for('helpPage') }}">Справка</a></li>
+{% endblock %}
+
+{% block mainblockspan9 %}
+	<h2>Документация</h2>
+	<p>
+		 Справочная информация по проекту Map Feature Server (mapfeatureserver).
+	</p>
+	<p>
+		Проект начат в день 2013-03-12, хотя
+		<a href="http://vasnake.blogspot.ru/2012/12/web-maps-platform.html">идея возникла несколько раньше</a>.
+		<br />
+		Концепция проекта заключается в том, чтобы, создав специальную серверную программу,
+		дать возможность пользователям разных вьюверов, типа
+		<a href="http://www.allgis.org/cartobonus/">Картобонус (Cartobonus)</a>,
+		добавлять в свои карты слои данных (Feature Layer) из любых источников, не только с серверов ArcGIS.
+		<br />
+		Для реализации задуманного, mapfeatureserver должен реализовать спецификации
+		<a href="http://resources.arcgis.com/en/help/rest/apiref/index.html?featureserver.html">http://resources.arcgis.com/en/help/rest/apiref/index.html?featureserver.html</a>,
+		одним из примеров реализации которых является «родной» сервер ArcGIS, к примеру
+		<a href="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1">http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1</a>
+	</p>
+{% endblock %}
+
+{% block extrascripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

@@ -1,0 +1,1035 @@
+{
+  "features": [
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 15751,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059106",
+        "objectid": 604,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 23972.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 50.0000000000,
+        "recid": 7508,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 23778.9111090,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 50.0000000000,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6647845.12872808,
+              10618612.929262897
+            ],
+            [
+              6612328.66354523,
+              10565096.9770154
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 15785,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059133",
+        "objectid": 1418,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 22664.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 6717,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 23063.4560605,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6623472.757652437,
+              10560739.088994801
+            ],
+            [
+              6622755.098930345,
+              10622398.371065577
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 15928,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059101",
+        "objectid": 3494,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 13233.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7480,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 12440.6632908,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6623739.0133274635,
+              10565768.19935502
+            ],
+            [
+              6590006.078632632,
+              10571819.084092557
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 15940,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059129",
+        "objectid": 3731,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 10915.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7148,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 11107.9808970,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6608812.135620692,
+              10595529.37672699
+            ],
+            [
+              6609963.362158685,
+              10565901.99030698
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16019,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059107",
+        "objectid": 8573,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 21602.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7509,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 21440.3030810,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6639564.026060611,
+              10615329.102693293
+            ],
+            [
+              6607905.932105101,
+              10566859.364080435
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16128,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059132",
+        "objectid": 10510,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 18018.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7151,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 18334.1140900,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6619987.653828225,
+              10565389.907740869
+            ],
+            [
+              6618262.300193224,
+              10614367.260334603
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16438,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059125",
+        "objectid": 16625,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 7596.00000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7144,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 7492.29336385,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6587921.895966225,
+              10581314.63567867
+            ],
+            [
+              6600370.939915483,
+              10565366.841820039
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16439,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059102",
+        "objectid": 16631,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 16963.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7504,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 16278.7942282,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6650903.034594286,
+              10587430.166357767
+            ],
+            [
+              6613345.276066294,
+              10563595.614285747
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16447,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059127",
+        "objectid": 16702,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 12093.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7146,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 12102.8664249,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6594365.112567847,
+              10594964.11269034
+            ],
+            [
+              6608958.215232013,
+              10565901.990258804
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16493,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059111",
+        "objectid": 18469,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 11713.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7513,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 11855.3900412,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6607609.950948864,
+              10595700.818424525
+            ],
+            [
+              6599457.942161119,
+              10565055.460212955
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16495,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059130",
+        "objectid": 18480,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 14686.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7149,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 14944.8357412,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6613212.785263986,
+              10602088.920315573
+            ],
+            [
+              6614703.307243035,
+              10562216.771654973
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16500,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059109",
+        "objectid": 18597,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 11246.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7511,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 11168.1052468,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6618642.786736948,
+              10592071.339380387
+            ],
+            [
+              6602278.892907315,
+              10566808.608584732
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16515,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059128",
+        "objectid": 18804,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 13944.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7147,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 14189.0932478,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6596328.6949041765,
+              10604635.621988337
+            ],
+            [
+              6594634.340692282,
+              10566769.388380155
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16579,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059104",
+        "objectid": 20198,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 14061.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7506,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 13969.3978272,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6624854.569219643,
+              10566794.765844146
+            ],
+            [
+              6645112.504822569,
+              10598541.815462995
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16589,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059126",
+        "objectid": 20319,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 8814.00000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7145,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 8762.39707665,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6591632.06425958,
+              10586770.70351424
+            ],
+            [
+              6604176.654623713,
+              10566785.537948174
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "archive": null,
+        "areaname": null,
+        "discretint": 0E-11,
+        "doclink": null,
+        "enddate": "199109",
+        "endnumshot": 0,
+        "fold": 0,
+        "format": "“Прогресс-2-Н",
+        "gid": 16615,
+        "location": "Баренцево море (Печорское море)",
+        "method": "метод отраженных волн (МОВ)",
+        "name": "05/91",
+        "note": null,
+        "num": "059105",
+        "objectid": 20631,
+        "orgdatapro": "Трест СМНГ",
+        "orgfieldwo": "Трест Севморнефтегеофизика",
+        "proflength": 16652.0000000,
+        "purpwork": "Изучение особенностей геологического строения; поиски и оконтуривание локальных структур различных типов в разрезе мезопалеозойского комплекса отложений",
+        "quantcmp": 0,
+        "ratio": "24",
+        "receiversp": 0E-11,
+        "recid": 7507,
+        "recorddura": 0E-11,
+        "scale": "1:50000",
+        "shape_leng": 16516.1201987,
+        "ship": "НИС ИСКАТЕЛЬ-2",
+        "shotpointq": 0,
+        "shotspacin": 0E-11,
+        "source": "080422_Maps",
+        "startdate": "199104",
+        "startnumsh": 0,
+        "surveysour": "Сигнал-5",
+        "watchsyste": "ФС"
+      },
+      "geometry": {
+        "paths": [
+          [
+            [
+              6617797.732861595,
+              10565399.134420596
+            ],
+            [
+              6642594.329644877,
+              10602427.498312984
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "fields": [
+    {
+      "alias": "OBJECTID",
+      "name": "gid",
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "alias": "OBJECTID",
+      "name": "objectid",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "RECID",
+      "name": "recid",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "AREANAME",
+      "length": 254,
+      "name": "areaname",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NAME",
+      "length": 254,
+      "name": "name",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHIP",
+      "length": 254,
+      "name": "ship",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "STARTDATE",
+      "length": 6,
+      "name": "startdate",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ENDDATE",
+      "length": 6,
+      "name": "enddate",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "METHOD",
+      "length": 50,
+      "name": "method",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NUM",
+      "length": 254,
+      "name": "num",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PURPWORK",
+      "length": 254,
+      "name": "purpwork",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SCALE",
+      "length": 254,
+      "name": "scale",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SURVEYSOUR",
+      "length": 254,
+      "name": "surveysour",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "WATCHSYSTE",
+      "length": 254,
+      "name": "watchsyste",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "FORMAT",
+      "length": 254,
+      "name": "format",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHOTSPACIN",
+      "name": "shotspacin",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "RECEIVERSP",
+      "name": "receiversp",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "FOLD",
+      "name": "fold",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "SHOTPOINTQ",
+      "name": "shotpointq",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "STARTNUMSH",
+      "name": "startnumsh",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "ENDNUMSHOT",
+      "name": "endnumshot",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "QUANTCMP",
+      "name": "quantcmp",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "RATIO",
+      "length": 254,
+      "name": "ratio",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "RECORDDURA",
+      "name": "recorddura",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "DISCRETINT",
+      "name": "discretint",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "ARCHIVE",
+      "length": 254,
+      "name": "archive",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ORGFIELDWO",
+      "length": 254,
+      "name": "orgfieldwo",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ORGDATAPRO",
+      "length": 254,
+      "name": "orgdatapro",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PROFLENGTH",
+      "name": "proflength",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "LOCATION",
+      "length": 254,
+      "name": "location",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "DOCLINK",
+      "length": 254,
+      "name": "doclink",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NOTE",
+      "length": 254,
+      "name": "note",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SOURCE",
+      "length": 254,
+      "name": "source",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHAPE_LENG",
+      "name": "shape_leng",
+      "type": "esriFieldTypeDouble"
+    }
+  ],
+  "geometryType": "esriGeometryPolyline",
+  "globalIdFieldName": "",
+  "objectIdFieldName": "gid",
+  "spatialReference": {
+    "latestWkid": 3857,
+    "wkid": 102100
+  }
+}

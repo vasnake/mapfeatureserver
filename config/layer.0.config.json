@@ -1,0 +1,236 @@
+{
+ "currentVersion": 10.11,
+ "id": 0,
+ "name": "Ямочный ремонт",
+ "type": "Feature Layer",
+ "description": "Места установки заплаток на дорогах",
+ "copyrightText": "ALGIS LLC 2013",
+ "defaultVisibility": true,
+ "editFieldsInfo": null,
+ "ownershipBasedAccessControlForFeatures": null,
+ "syncCanReturnChanges": false,
+ "relationships": [],
+ "isDataVersioned": false,
+ "supportsRollbackOnFailureParameter": true,
+ "supportsStatistics": true,
+ "supportsAdvancedQueries": true,
+ "geometryType": "esriGeometryPoint",
+ "minScale": 0,
+ "maxScale": 0,
+ "extent": {
+  "xmin": 27.765770083999996,
+  "ymin": 52.86936644999997,
+  "xmax": 36.71166105100002,
+  "ymax": 62.012733638999975,
+  "spatialReference": {
+   "wkid": 4326,
+   "latestWkid": 4326
+  }
+ },
+ "drawingInfo": {
+  "renderer": {
+   "type": "uniqueValue",
+   "field1": "roadcarpet",
+   "field2": null,
+   "field3": null,
+   "fieldDelimiter": ", ",
+   "defaultSymbol": null,
+   "defaultLabel": null,
+   "uniqueValueInfos": [
+	{
+	 "symbol": {
+	  "type": "esriPMS",
+	  "url": "http://localhost:5000/static/asfalt.png",
+	  "imageData": "",
+	  "contentType": "image/png",
+	  "width": 24,
+	  "height": 24,
+	  "angle": 0,
+	  "xoffset": 0,
+	  "yoffset": 0
+	 },
+	 "value": "Асфальт",
+	 "label": "Асфальт",
+	 "description": ""
+	},
+	{
+	 "symbol": {
+	  "type": "esriPMS",
+	  "url": "http://localhost:5000/static/beton.png",
+	  "imageData": "",
+	  "contentType": "image/png",
+	  "width": 18,
+	  "height": 18,
+	  "angle": 0,
+	  "xoffset": 0,
+	  "yoffset": 0
+	 },
+	 "value": "Бетон",
+	 "label": "Бетон",
+	 "description": ""
+	},
+	{
+	 "symbol": {
+	  "type": "esriPMS",
+	  "url": "http://localhost:5000/static/sheben.png",
+	  "imageData": "",
+	  "contentType": "image/png",
+	  "width": 18,
+	  "height": 18,
+	  "angle": 0,
+	  "xoffset": 0,
+	  "yoffset": 0
+	 },
+	 "value": "Щебень",
+	 "label": "Щебень",
+	 "description": ""
+	}
+   ]
+  },
+  "transparency": 0,
+  "labelingInfo": null
+ },
+ "hasM": false,
+ "hasZ": false,
+ "allowGeometryUpdates": true,
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+ "objectIdField": "objectid",
+ "globalIdField": "",
+ "displayField": "descr",
+ "typeIdField": "roadcarpet",
+ "fields": [
+  {
+   "name": "objectid",
+   "type": "esriFieldTypeOID",
+   "alias": "OBJECTID",
+   "domain": null,
+   "editable": false,
+   "nullable": false
+  },
+  {
+   "name": "ptchlenght",
+   "type": "esriFieldTypeSmallInteger",
+   "alias": "ДлинаУчастка, м",
+   "domain": null,
+   "editable": true,
+   "nullable": true
+  },
+  {
+   "name": "pthcdeptht",
+   "type": "esriFieldTypeSmallInteger",
+   "alias": "ГлубинаУчастка, см",
+   "domain": null,
+   "editable": true,
+   "nullable": true
+  },
+  {
+   "name": "descr",
+   "type": "esriFieldTypeString",
+   "alias": "Описание",
+   "domain": null,
+   "editable": true,
+   "nullable": true,
+   "length": 100
+  },
+  {
+   "name": "regdaterecord",
+   "type": "esriFieldTypeString",
+   "alias": "ДатаЗаписи",
+   "domain": null,
+   "editable": true,
+   "nullable": true,
+   "length": 50
+  },
+  {
+   "name": "regdaterepair",
+   "type": "esriFieldTypeString",
+   "alias": "ДатаРемонта",
+   "domain": null,
+   "editable": true,
+   "nullable": true,
+   "length": 50
+  },
+  {
+   "name": "roadcarpet",
+   "type": "esriFieldTypeString",
+   "alias": "ДорожноеПокрытие",
+   "domain": null,
+   "editable": true,
+   "nullable": true,
+   "length": 50
+  }
+ ],
+ "types": [
+  {
+   "id": "Бетон",
+   "name": "Бетон",
+   "domains": {},
+   "templates": [
+	{
+	 "name": "Бетон",
+	 "description": "",
+	 "prototype": {
+	  "attributes": {
+	   "roadcarpet": "Бетон",
+	   "ptchlenght": null,
+	   "pthcdeptht": null,
+	   "descr": null,
+	   "regdaterecord": null,
+	   "regdaterepair": null
+	  }
+	 },
+	 "drawingTool": "esriFeatureEditToolPoint"
+	}
+   ]
+  },
+  {
+   "id": "Щебень",
+   "name": "Щебень",
+   "domains": {},
+   "templates": [
+	{
+	 "name": "Щебень",
+	 "description": "",
+	 "prototype": {
+	  "attributes": {
+	   "roadcarpet": "Щебень",
+	   "ptchlenght": null,
+	   "pthcdeptht": null,
+	   "descr": null,
+	   "regdaterecord": null,
+	   "regdaterepair": null
+	  }
+	 },
+	 "drawingTool": "esriFeatureEditToolPoint"
+	}
+   ]
+  },
+  {
+   "id": "Асфальт",
+   "name": "Асфальт",
+   "domains": {},
+   "templates": [
+	{
+	 "name": "Асфальт",
+	 "description": "",
+	 "prototype": {
+	  "attributes": {
+	   "roadcarpet": "Асфальт",
+	   "ptchlenght": null,
+	   "pthcdeptht": null,
+	   "descr": null,
+	   "regdaterecord": null,
+	   "regdaterepair": null
+	  }
+	 },
+	 "drawingTool": "esriFeatureEditToolPoint"
+	}
+   ]
+  }
+ ],
+ "templates": [],
+ "maxRecordCount": 1000,
+ "supportedQueryFormats": "JSON, AMF",
+ "capabilities": "Create,Delete,Query,Update,Uploads,Editing"
+}

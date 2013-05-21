@@ -1,0 +1,67 @@
+{
+  "features": [
+    {
+      "attributes": {
+        "descr": "werwre",
+        "gid": 8,
+        "ptchlenght": 500,
+        "pthcdeptht": 8,
+        "regdaterec": "2012/08/02",
+        "regdaterep": "2012/09/15",
+        "roadcarpet": "Асфальт"
+      },
+      "geometry": {
+        "x": 3980475.9450405277,
+        "y": 6976079.279805333
+      }
+    }
+  ],
+  "fields": [
+    {
+      "alias": "OBJECTID",
+      "name": "gid",
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "alias": "PTCHLENGHT",
+      "name": "ptchlenght",
+      "type": "esriFieldTypeSmallInteger"
+    },
+    {
+      "alias": "PTHCDEPTHT",
+      "name": "pthcdeptht",
+      "type": "esriFieldTypeSmallInteger"
+    },
+    {
+      "alias": "DESCR",
+      "length": 100,
+      "name": "descr",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "REGDATEREC",
+      "length": 50,
+      "name": "regdaterec",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "REGDATEREP",
+      "length": 50,
+      "name": "regdaterep",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ROADCARPET",
+      "length": 50,
+      "name": "roadcarpet",
+      "type": "esriFieldTypeString"
+    }
+  ],
+  "geometryType": "esriGeometryPoint",
+  "globalIdFieldName": "",
+  "objectIdFieldName": "gid",
+  "spatialReference": {
+    "latestWkid": 3857,
+    "wkid": 102100
+  }
+}
