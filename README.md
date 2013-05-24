@@ -5,7 +5,9 @@ WSGI (Python, Flask) service for ArcGIS Feature Layer REST replacement/implement
 
 ## About
 
-Mapfeatureserver is a web service written on Python (WSGI, Flask) and it can act like ArcGIS FeatureServer ([Feature Service Layer aka FeatureLayer](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)) without ArcGIS.
+Mapfeatureserver is a web service written on Python (WSGI, Flask) and it can act like ArcGIS FeatureServer
+([Feature Service Layer aka FeatureLayer](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html))
+without ArcGIS.
 
 Here we have Proof Of Concept, a sketchy draft for evaluation of idea.
 
@@ -17,7 +19,10 @@ For now, service can serve two kind of requests:
 For data query only subset of arguments be parsed.
 E.g: `http://service/0/query?geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}&outSR=102100`
 
-Those two types of requests allow using service layers in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/) already. This web maps  builded using ArcGIS Silverlight API. By word "using" I meant actions like "add layer to map", "view feature attributes" in popups and table.
+Those two types of requests allow using service layers in web maps like
+[Cartobonus](http://www.allgis.org/cartobonus/help/)
+already. This web maps  builded using ArcGIS Silverlight API.
+By word "using" I meant actions like "add layer to map", "view feature attributes" in popups and table.
 Functions like records filtering, editing, updating and creating features will be availible later.
 You can use MFS layers in other Esri API maybe, I didn't test.
 
@@ -67,7 +72,9 @@ this is hardest thing to do. For help you can copy meta data from ArcGIS Feature
 Also, you should use special page from MFS, e.g.
 `http://localhost:5000/admin/dsn/flyzone?oidfield=gid&geomfield=geom`
 
-You can use created layer in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/) by adding it to map as regular ArcGIS FeatureLayer `http://hostname:5000/<layer id>`
+You can use created layer in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/)
+or any other [ArcGIS style web maps](http://resources.arcgis.com/content/web/web-apis)
+by adding it to map as regular ArcGIS FeatureLayer `http://hostname:5000/<layer id>`
 
 ## TODO
 
@@ -87,7 +94,14 @@ it under the terms of the [GNU General Public License](http://www.gnu.org/licens
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Restrictions: for this release you need access to PostGIS DB; you have to create layer meta data file by hand; from Esri specs only one type of query realized - select features by box.
+Restrictions: for this release you need access to PostGIS DB;
+you have to create layer meta data file by hand;
+from Esri specs only one type of query realized - select features by box.
+
+## Links
+
+* [Статья на GIS-Lab](http://wiki.gis-lab.info/w/Mapfeatureserver_как_замена_ArcGIS_Server)
+* [Статья в блоге автора](http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html)
 
 Copyright 2012-2013 Valentin Fedulov
 mailto:vasnake@gmail.com
