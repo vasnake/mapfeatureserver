@@ -17,16 +17,16 @@
  "geometryType": "esriGeometryPoint",
  "minScale": 0,
  "maxScale": 0,
- "extent": {
-  "xmin": 27.765770083999996,
-  "ymin": 52.86936644999997,
-  "xmax": 36.71166105100002,
-  "ymax": 62.012733638999975,
-  "spatialReference": {
-   "wkid": 4326,
-   "latestWkid": 4326
-  }
- },
+    "extent": {
+      "xmin": 35.757223795000002,
+      "ymin": 52.869366450000001,
+      "xmax": 36.711661051000000,
+      "ymax": 52.996481480999996,
+      "spatialReference": {
+       "wkid": 4326,
+       "latestWkid": 4326
+      }
+     },
  "drawingInfo": {
   "renderer": {
    "type": "uniqueValue",
@@ -95,72 +95,72 @@
  "allowGeometryUpdates": true,
  "hasAttachments": false,
  "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
- "objectIdField": "objectid",
+ "objectIdField": "gid",
  "globalIdField": "",
  "displayField": "descr",
  "typeIdField": "roadcarpet",
- "fields": [
-  {
-   "name": "objectid",
-   "type": "esriFieldTypeOID",
-   "alias": "OBJECTID",
-   "domain": null,
-   "editable": false,
-   "nullable": false
-  },
-  {
-   "name": "ptchlenght",
-   "type": "esriFieldTypeSmallInteger",
-   "alias": "ДлинаУчастка, м",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "pthcdeptht",
-   "type": "esriFieldTypeSmallInteger",
-   "alias": "ГлубинаУчастка, см",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "descr",
-   "type": "esriFieldTypeString",
-   "alias": "Описание",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 100
-  },
-  {
-   "name": "regdaterecord",
-   "type": "esriFieldTypeString",
-   "alias": "ДатаЗаписи",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 50
-  },
-  {
-   "name": "regdaterepair",
-   "type": "esriFieldTypeString",
-   "alias": "ДатаРемонта",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 50
-  },
-  {
-   "name": "roadcarpet",
-   "type": "esriFieldTypeString",
-   "alias": "ДорожноеПокрытие",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 50
-  }
- ],
+  "fields": [
+    {
+      "alias": "OBJECTID",
+      "domain": null,
+      "editable": false,
+      "name": "gid",
+      "nullable": false,
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "alias": "PTCHLENGHT",
+      "domain": null,
+      "editable": false,
+      "name": "ptchlenght",
+      "nullable": true,
+      "type": "esriFieldTypeSmallInteger"
+    },
+    {
+      "alias": "PTHCDEPTHT",
+      "domain": null,
+      "editable": false,
+      "name": "pthcdeptht",
+      "nullable": true,
+      "type": "esriFieldTypeSmallInteger"
+    },
+    {
+      "alias": "DESCR",
+      "domain": null,
+      "editable": false,
+      "length": 100,
+      "name": "descr",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "REGDATEREC",
+      "domain": null,
+      "editable": false,
+      "length": 50,
+      "name": "regdaterec",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "REGDATEREP",
+      "domain": null,
+      "editable": false,
+      "length": 50,
+      "name": "regdaterep",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ROADCARPET",
+      "domain": null,
+      "editable": false,
+      "length": 50,
+      "name": "roadcarpet",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    }
+  ],
  "types": [
   {
    "id": "Бетон",

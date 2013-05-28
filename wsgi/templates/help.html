@@ -13,7 +13,7 @@
 {% block mainblockspan9 %}
 	<h2>Документация</h2>
 	<p>
-		 Справочная информация по проекту Map Feature Server (mapfeatureserver).
+		 Справочная информация по проекту Map Feature Server (Mapfeatureserver).
 	</p>
 	<p>
 		Проект начат в день 2013-03-12, хотя
@@ -21,14 +21,18 @@
 		<br />
 		Концепция проекта заключается в том, чтобы, создав специальную серверную программу,
 		дать возможность пользователям разных вьюверов, типа
-		<a href="http://www.allgis.org/cartobonus/">Картобонус (Cartobonus)</a>,
-		добавлять в свои карты слои данных (Feature Layer) из любых источников, не только с серверов ArcGIS.
+		<a href="http://www.allgis.org/cartobonus/help/">Картобонус (Cartobonus)</a>,
+		добавлять в свои карты слои данных (FeatureLayer) из любых источников, не только с серверов ArcGIS.
 		<br />
 		Для реализации задуманного, mapfeatureserver должен реализовать спецификации
-		<a href="http://resources.arcgis.com/en/help/rest/apiref/index.html?featureserver.html">http://resources.arcgis.com/en/help/rest/apiref/index.html?featureserver.html</a>,
+		<a href="http://resources.arcgis.com/en/help/rest/apiref/fslayer.html">Feature Service - Layer</a>,
 		одним из примеров реализации которых является «родной» сервер ArcGIS, к примеру
-		<a href="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1">http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1</a>
+		<a href="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/FeatureServer/0">
+        http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/FeatureServer/0</a>
 	</p>
+    <p>
+        Подробные сведения о проекте и его применении можно получить изучив файлы README, входящие в состав проекта.
+    </p>
 {% endblock %}
 
 {% block extrascripts %}
