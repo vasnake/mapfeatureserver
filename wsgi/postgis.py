@@ -46,7 +46,8 @@ TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger", 
 
 FIELDTYPENAME2ESRI = {'geography': u'esriFieldTypeGeometry', 'geometry': u'esriFieldTypeGeometry',
     'int4': u'esriFieldTypeInteger', 'int2': u'esriFieldTypeSmallInteger',
-    'varchar': u'esriFieldTypeString', 'numeric': u'esriFieldTypeDouble'}
+    'varchar': u'esriFieldTypeString', 'numeric': u'esriFieldTypeDouble',
+    'text': u'esriFieldTypeString', 'timestamp': u'esriFieldTypeDate'}
 # Map information_schema.columns.udt_name to Esri field type
 
 
