@@ -107,7 +107,7 @@ from Esri specs only one type of query realized - select features by box.
 * [Статья на GIS-Lab](http://wiki.gis-lab.info/w/Mapfeatureserver_как_замена_ArcGIS_Server)
 * [Обсуждение статьи на форуме ГИС-Лаб](http://gis-lab.info/forum/viewtopic.php?f=3&t=13731)
 * [Статья в блоге автора](http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html)
-* [http://resources.arcgis.com/en/help/rest/apiref/fslayer.html](ArcGIS Server REST API)
+* [ArcGIS Server REST API](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)
 * Mapfeatureserver client - [web map viewer Cartobonus](http://www.allgis.org/cartobonus/help/)
 * Brothers in arms: [Papyrus](http://papyrus.readthedocs.org/en/latest/), [FeatureServer](http://featureserver.org/)
 
