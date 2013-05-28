@@ -29,7 +29,8 @@ You can use MFS layers in other Esri API maybe, I didn't test.
 ## How to use
 
 For starting a service you need to perform next steps:
-Install Python 2.7 and libraries, e.g. for MS Windows
+* Download Mapfeatureserver and set suitable values for parameters in module `mapfeatureserver\wsgi\default_settings.py`
+* Install Python 2.7 and libraries, e.g. for MS Windows
 
 ```
 set path=%path%;c:\d\Python27;c:\d\Python27\Scripts
@@ -38,7 +39,7 @@ pip install Flask flask-login blinker psycopg2 simplejson
 
 [psycopg2 for Windows](http://www.stickpeople.com/projects/python/win-psycopg/)
 
-Start Flask application
+* Start Flask application
 
 ```
 pushd mapfeatureserver\wsgi
@@ -61,14 +62,16 @@ shp2pgsql.exe -d -I -s 4326 -W cp1251 flyzone.shp mfsdata.flyzone > flyzone.dump
 psql -f flyzone.dump.sql postgisdb mfs
 ```
 
-* write layer info to config file
+* write layer info (layer ID - any integer, table name, etc) to config file
 `mapfeatureserver\config\layers.config.ini`
 for help look example config records.
 
 * Create layer meta data file
 `mapfeatureserver\config\layer.<layer id>.config.json`
-this is hardest thing to do. For help you can copy meta data from ArcGIS Feature Layer configured as you wish. URL should be like this
+this is hardest thing to do. For help you can copy meta data from similar ArcGIS Feature Layer configured as you wish.
+E.g. URL for that AGS layer should be like this
 `http://testags/arcgis/rest/services/flyzone/FeatureServer/2?f=pjson`
+if you have AGS web service named 'flyzone'.
 Also, you should use special page from MFS, e.g.
 `http://localhost:5000/admin/dsn/flyzone?oidfield=gid&geomfield=geom`
 
@@ -78,14 +81,15 @@ by adding it to map as regular ArcGIS FeatureLayer `http://hostname:5000/<layer 
 
 ## TODO
 
-* Combine Python modules to package, maybe egg.
+* Combine Python modules to package, maybe egg. Create MFS distribution.
 * Aliases for layer fields should be readed from layer meta data.
 * [Identify function](http://resources.arcgis.com/en/help/rest/apiref/identify.html) aka 'Инфо' в Картобонус.
 * Edit function for features - [Add Features, Update Features, Delete Features, Apply Edits](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html).
 * Records filtering - [query 'where' clause](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
 * Features fields list filtering - [query 'outFields' parameter](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
 * Source code unittesting and using mock instead of actual DB.
-* Write adapter for layers in MySQL.
+* Write adapters for layers in MySQL, MongoDB, WFS (Web Feature Service)
+* User interface for loading shape files and creating layers.
 
 ## License and restrictions
 
@@ -101,7 +105,11 @@ from Esri specs only one type of query realized - select features by box.
 ## Links
 
 * [Статья на GIS-Lab](http://wiki.gis-lab.info/w/Mapfeatureserver_как_замена_ArcGIS_Server)
+* [Обсуждение статьи на форуме ГИС-Лаб](http://gis-lab.info/forum/viewtopic.php?f=3&t=13731)
 * [Статья в блоге автора](http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html)
+* [http://resources.arcgis.com/en/help/rest/apiref/fslayer.html](ArcGIS Server REST API)
+* Mapfeatureserver client - [web map viewer Cartobonus](http://www.allgis.org/cartobonus/help/)
+* Brothers in arms: [Papyrus](http://papyrus.readthedocs.org/en/latest/), [FeatureServer](http://featureserver.org/)
 
 Copyright 2012-2013 Valentin Fedulov
 mailto:vasnake@gmail.com
