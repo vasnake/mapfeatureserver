@@ -41,7 +41,7 @@ COLTYPESGEOM = (25, 16912, 16397)
 # Geometry columns type_code values
 
 TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger", 1043: u"esriFieldTypeString",
-    1700: u'esriFieldTypeDouble'}
+    1700: u"esriFieldTypeDouble", 1114: u"esriFieldTypeDate"}
 # Map type_code to Esri types. esriFieldTypeOID == esriFieldTypeInteger
 
 FIELDTYPENAME2ESRI = {'geography': u'esriFieldTypeGeometry', 'geometry': u'esriFieldTypeGeometry',
