@@ -41,6 +41,9 @@ PGTEXT_LENGTH = 4000
 # Field Length parameter for Postgres 'text' fields mapped to esriFieldTypeString
 # maybe we should map 'text' to esriFieldTypeBlob
 
+PGTIMESTAMP_LENGTH = 19  # 19 symbols "2013-05-29 18:09:00"
+# timestamp [ (p) ] [ without time zone ] 8 bytes according to http://www.postgresql.org/docs/9.0/static/datatype-datetime.html
+
 COLTYPESGEOM = (16912, 16397)
 # Geometry columns type_code values
 
@@ -49,6 +52,7 @@ TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger",
                  1700: u"esriFieldTypeDouble", 1114: u"esriFieldTypeDate"}
 # Map type_code to Esri types. esriFieldTypeOID == esriFieldTypeInteger
 # 25 is PG 'text' type, maybe we should map 'text' to esriFieldTypeBlob
+# 1114 is timestamp [ (p) ] [ without time zone ]
 
 FIELDTYPENAME2ESRI = {'geography': u'esriFieldTypeGeometry', 'geometry': u'esriFieldTypeGeometry',
     'int4': u'esriFieldTypeInteger', 'int2': u'esriFieldTypeSmallInteger',
@@ -188,7 +192,8 @@ def tableFields4esri(ds, tabname, oidfname):
 
     data = []
     for rec in cur:
-#        print rec # (u'testtext', u'YES', u'text', u'text', None, None, None) # esriFieldTypeString or esriFieldTypeBlob?
+#        print rec  # (u'testtimestamp', u'YES', u'timestamp without time zone', u'timestamp', None, None, None)
+        # (u'testtext', u'YES', u'text', u'text', None, None, None) # esriFieldTypeString or esriFieldTypeBlob?
         # (u'shotspacin', u'YES', u'numeric', u'numeric', None, None, None) # esriFieldTypeDouble
         # (u'geom', u'YES', u'USER-DEFINED', u'geometry', None, None, None)
         ftype = FIELDTYPENAME2ESRI[rec[3]]
@@ -198,10 +203,12 @@ def tableFields4esri(ds, tabname, oidfname):
         obj = {u'name': rec[0], u'type': ftype, u'alias': rec[0].upper(), u'domain': None,
             u'editable': False, u'nullable': nullable[rec[1]]}
 
-        if obj[u'type'] == u'esriFieldTypeString':
+        if obj[u'type'] in esri.ESRI_FIELDS_WITH_LENGTH:
             obj[u'length'] = rec[4]
             if rec[3] == u'text':  # maybe we should use esriFieldTypeBlob
                 obj[u'length'] = PGTEXT_LENGTH
+            elif rec[3] == u'timestamp':
+                obj[u'length'] = PGTIMESTAMP_LENGTH
 
         if oidfname.lower() == obj[u'name'].lower():
             obj = {u'name': rec[0], u'type': u'esriFieldTypeOID', u'alias': u'OBJECTID',
@@ -267,7 +274,7 @@ def fieldFromDescr(col, oidfield):
     TODO: rewrite function, field parameters must be parsed from layer metadata from layer config.
     Field alias and type actually.
     """
-#    print col
+#    print col  # Column(name='testtimestamp', type_code=1114, display_size=None, internal_size=8, precision=None, scale=None, null_ok=None)
     # PG field type 'text':
     # Column(name='testtext', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
     # Column(name='shape', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
@@ -285,6 +292,8 @@ def fieldFromDescr(col, oidfield):
         fld['length'] = col.internal_size
         if col.internal_size == -1:  # 'text' field type, actually it's a blob
             fld['length'] = PGTEXT_LENGTH
+        elif ftype == u'esriFieldTypeDate':  # internal size = 8 bytes, string repr. = 19 symbols
+            fld['length'] = PGTIMESTAMP_LENGTH
 
     return fld
 #def fieldFromDescr(col, oidfield):
@@ -335,7 +344,7 @@ def featuresFromCursor(cur):
 
         columns = lambda a: (zip(range(len(a)), a))
         for colnum, col in columns(cur.description):
-#            print col
+#            print col  # Column(name='testtimestamp', type_code=1114, display_size=None, internal_size=8, precision=None, scale=None, null_ok=None)
             if unicode(col.name) == u'shape':  # geometry
                 shape = simplejson.loads(rec[colnum])
                 geometryType, geometry = esri.geoJson2agJson(shape)

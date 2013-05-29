@@ -27,8 +27,9 @@ import simplejson
 
 CP = 'UTF-8'
 
-ESRI_FIELDS_WITH_LENGTH = ("esriFieldTypeString")
+ESRI_FIELDS_WITH_LENGTH = (u"esriFieldTypeString", u"esriFieldTypeDate")
 # Esri fields types with 'length' attribute
+# from 10.0 fields of type (String, Date, GlobalID, GUID and XML) have an additional length property
 
 GEOJSON_ESRI_GEOMTYPES = {u'Point': u'esriGeometryPoint',
                           u'MultiLineString': u'esriGeometryPolyline',

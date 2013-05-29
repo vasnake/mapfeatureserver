@@ -78,8 +78,11 @@ def jsonify(obj):
 
     text = simplejson.dumps(data, ensure_ascii=False, sort_keys=True, indent=2, default=jsonify, use_decimal=False)
     """
+    import datetime
     if isinstance(obj, decimal.Decimal):
         return float(obj)
+    elif isinstance(obj, datetime.datetime):
+        return obj.strftime('%Y-%m-%d %H:%M:%S')  # "2013-05-29 18:09:00"
     raise TypeError(repr(obj) + " is not JSON serializable")
 #def jsonify(obj):
 
