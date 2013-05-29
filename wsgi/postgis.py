@@ -37,12 +37,18 @@ import layermeta
 
 CP = 'UTF-8'
 
-COLTYPESGEOM = (25, 16912, 16397)
+PGTEXT_LENGTH = 4000
+# Field Length parameter for Postgres 'text' fields mapped to esriFieldTypeString
+# maybe we should map 'text' to esriFieldTypeBlob
+
+COLTYPESGEOM = (16912, 16397)
 # Geometry columns type_code values
 
-TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger", 1043: u"esriFieldTypeString",
-    1700: u"esriFieldTypeDouble", 1114: u"esriFieldTypeDate"}
+TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger",
+                 1043: u"esriFieldTypeString", 25: u"esriFieldTypeString",
+                 1700: u"esriFieldTypeDouble", 1114: u"esriFieldTypeDate"}
 # Map type_code to Esri types. esriFieldTypeOID == esriFieldTypeInteger
+# 25 is PG 'text' type, maybe we should map 'text' to esriFieldTypeBlob
 
 FIELDTYPENAME2ESRI = {'geography': u'esriFieldTypeGeometry', 'geometry': u'esriFieldTypeGeometry',
     'int4': u'esriFieldTypeInteger', 'int2': u'esriFieldTypeSmallInteger',
@@ -182,18 +188,25 @@ def tableFields4esri(ds, tabname, oidfname):
 
     data = []
     for rec in cur:
-#        print rec  # (u'shotspacin', u'YES', u'numeric', u'numeric', None, None, None) # esriFieldTypeDouble
+#        print rec # (u'testtext', u'YES', u'text', u'text', None, None, None) # esriFieldTypeString or esriFieldTypeBlob?
+        # (u'shotspacin', u'YES', u'numeric', u'numeric', None, None, None) # esriFieldTypeDouble
         # (u'geom', u'YES', u'USER-DEFINED', u'geometry', None, None, None)
         ftype = FIELDTYPENAME2ESRI[rec[3]]
         if ftype == u'esriFieldTypeGeometry':
             continue
+
         obj = {u'name': rec[0], u'type': ftype, u'alias': rec[0].upper(), u'domain': None,
             u'editable': False, u'nullable': nullable[rec[1]]}
+
         if obj[u'type'] == u'esriFieldTypeString':
             obj[u'length'] = rec[4]
+            if rec[3] == u'text':  # maybe we should use esriFieldTypeBlob
+                obj[u'length'] = PGTEXT_LENGTH
+
         if oidfname.lower() == obj[u'name'].lower():
             obj = {u'name': rec[0], u'type': u'esriFieldTypeOID', u'alias': u'OBJECTID',
             u'domain': None, u'editable': False, u'nullable': False}
+
         data.append(obj)
 
     return simplejson.dumps({'objectIdField': oidfname, 'fields': data},
@@ -254,7 +267,11 @@ def fieldFromDescr(col, oidfield):
     TODO: rewrite function, field parameters must be parsed from layer metadata from layer config.
     Field alias and type actually.
     """
-    if col.type_code in COLTYPESGEOM:
+#    print col
+    # PG field type 'text':
+    # Column(name='testtext', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
+    # Column(name='shape', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
+    if col.type_code in COLTYPESGEOM or unicode(col.name) == u'shape':
         return None
 
     ftype = TYPECODE2ESRI[col.type_code]
@@ -266,6 +283,8 @@ def fieldFromDescr(col, oidfield):
     fld = {'name': col.name, 'alias': falias.upper(), 'type': ftype}
     if ftype in esri.ESRI_FIELDS_WITH_LENGTH:
         fld['length'] = col.internal_size
+        if col.internal_size == -1:  # 'text' field type, actually it's a blob
+            fld['length'] = PGTEXT_LENGTH
 
     return fld
 #def fieldFromDescr(col, oidfield):
@@ -316,10 +335,11 @@ def featuresFromCursor(cur):
 
         columns = lambda a: (zip(range(len(a)), a))
         for colnum, col in columns(cur.description):
-            if col.name.lower() == 'shape':  # geometry
+#            print col
+            if unicode(col.name) == u'shape':  # geometry
                 shape = simplejson.loads(rec[colnum])
                 geometryType, geometry = esri.geoJson2agJson(shape)
-
+                continue
             if col.type_code in COLTYPESGEOM:
                 continue
             attributes[col.name] = rec[colnum]
