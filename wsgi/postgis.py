@@ -41,7 +41,7 @@ PGTEXT_LENGTH = 4000
 # Field Length parameter for Postgres 'text' fields mapped to esriFieldTypeString
 # maybe we should map 'text' to esriFieldTypeBlob
 
-PGTIMESTAMP_LENGTH = 19  # 19 symbols "2013-05-29 18:09:00"
+PGTIMESTAMP_LENGTH = 36  # 19 symbols "2013-05-29 18:09:00"; AGS shows: (type: esriFieldTypeDate, length: 36)
 # timestamp [ (p) ] [ without time zone ] 8 bytes according to http://www.postgresql.org/docs/9.0/static/datatype-datetime.html
 
 COLTYPESGEOM = (16912, 16397)

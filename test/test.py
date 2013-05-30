@@ -118,7 +118,7 @@ class LayerDataTests(unittest.TestCase):
                 layer.geomfield = geog
                 layer.oidfield = gid
         """
-        import layermeta, layerdata
+        import layermeta, layerdata, mfslib
 
         # sample recordset for patching
         #имя таблицы - from ini
@@ -130,10 +130,16 @@ class LayerDataTests(unittest.TestCase):
         inpBox = '{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
         res = layerdata.layerDataInBox(self.cur, lyrinf, outSR, inpBox)
         # compare patching data
+
+        txt = simplejson.dumps(res, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+#        with open('layerdata.test1.json', 'wb') as fh:
+#            fh.write(txt.encode(CP))
+        res = simplejson.loads(txt, use_decimal=True)
         with open('layerdata.test1.json') as fh:
             txt = fh.read().strip().decode(CP)
-            dct = simplejson.loads(txt)
-        self.assertEqual(res, dct)
+            dct = simplejson.loads(txt, use_decimal=True)
+        # compare dictionaries
+        self.assertDictEqual(dct, res)
 
         # empty recordset for seismoprofiles
         lyrinf = layermeta.DBLayerInfo('seisprof', 'geom', 'gid')

@@ -25,6 +25,9 @@ along with Mapfeatureserver.  If not, see <http://www.gnu.org/licenses/>.
 import os
 import ConfigParser, io
 import decimal
+import datetime
+
+EPOCH = datetime.datetime.utcfromtimestamp(0)
 
 
 class IDataSource(object):
@@ -73,16 +76,28 @@ def splitAndStrip(datastr, separator):
 #def splitAndStrip(datastr, separator):
 
 
+def unix_time_millisec(dt):
+    r''' Returns float(milliseconds) from Unix epoch
+    http://stackoverflow.com/questions/6999726/python-getting-millis-since-epoch-from-datetime
+    '''
+    delta = dt - EPOCH
+    return delta.total_seconds() * 1000.0
+#def unix_time_millisec(dt)
+
+
 def jsonify(obj):
     """ Helper function for using in simplejson.dumps
 
     text = simplejson.dumps(data, ensure_ascii=False, sort_keys=True, indent=2, default=jsonify, use_decimal=False)
+
+    Note that date values are encoded as numbers.
+    The number represents the number of milliseconds since epoch (January 1, 1970) in UTC.
+    http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000n8000000
     """
-    import datetime
     if isinstance(obj, decimal.Decimal):
         return float(obj)
     elif isinstance(obj, datetime.datetime):
-        return obj.strftime('%Y-%m-%d %H:%M:%S')  # "2013-05-29 18:09:00"
+        return long(unix_time_millisec(obj))
     raise TypeError(repr(obj) + " is not JSON serializable")
 #def jsonify(obj):
 

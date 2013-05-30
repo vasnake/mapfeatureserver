@@ -159,6 +159,15 @@
       "name": "roadcarpet",
       "nullable": true,
       "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ПроверкаТаймштампа",
+      "domain": null,
+      "editable": false,
+      "length": 36,
+      "name": "testtimestamp",
+      "nullable": true,
+      "type": "esriFieldTypeDate"
     }
   ],
  "types": [

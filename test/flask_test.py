@@ -56,7 +56,8 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         "pthcdeptht": 8,
         "regdaterec": "2012/08/02",
         "regdaterep": "2012/09/15",
-        "roadcarpet": "Асфальт"
+        "roadcarpet": "Асфальт",
+        "testtimestamp": 1369850940000
       },
       "geometry": {
         "x": 3980475.9450405277,

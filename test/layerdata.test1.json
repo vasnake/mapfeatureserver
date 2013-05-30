@@ -8,7 +8,8 @@
         "pthcdeptht": 8,
         "regdaterec": "2012/08/02",
         "regdaterep": "2012/09/15",
-        "roadcarpet": "Асфальт"
+        "roadcarpet": "Асфальт",
+        "testtimestamp": 1369850940000
       },
       "geometry": {
         "x": 3980475.9450405277,
@@ -55,6 +56,12 @@
       "length": 50,
       "name": "roadcarpet",
       "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "TESTTIMESTAMP",
+      "length": 36,
+      "name": "testtimestamp",
+      "type": "esriFieldTypeDate"
     }
   ],
   "geometryType": "esriGeometryPoint",
