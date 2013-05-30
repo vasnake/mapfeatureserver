@@ -64,7 +64,7 @@ psql -f flyzone.dump.sql postgisdb mfs
 
 * write layer info (layer ID - any integer, table name, etc) to config file
 `mapfeatureserver\config\layers.config.ini`
-for help look example config records.
+along with PostgreSQL connection parameters. For help look example config records.
 
 * Create layer meta data file
 `mapfeatureserver\config\layer.<layer id>.config.json`
@@ -78,6 +78,29 @@ Also, you should use special page from MFS, e.g.
 You can use created layer in web maps like [Cartobonus](http://www.allgis.org/cartobonus/help/)
 or any other [ArcGIS style web maps](http://resources.arcgis.com/content/web/web-apis)
 by adding it to map as regular ArcGIS FeatureLayer `http://hostname:5000/<layer id>`
+
+### It's not working!
+
+If you think that MFS didn't work properly, look to the window with Flask application.
+If you see mapfs_controller.py traceback - you right, MFS is broken.
+Copy that traceback and sent it to me or open an issue on GitHub.
+
+Some tips
+
+* PostgreSQL connection, user privileges.
+A minimum set of privileges for user 'guest' should be not less than
+
+```
+CREATE USER guest WITH password 'guest';
+ALTER USER guest SET search_path TO mfsdata,public;
+GRANT USAGE ON schema mfsdata TO guest;
+GRANT SELECT ON table mfsdata.patching TO guest;
+GRANT SELECT ON geometry_columns TO guest;
+GRANT SELECT ON geography_columns TO guest;
+GRANT SELECT ON spatial_ref_sys TO guest;
+```
+
+according layer data in 'mfsdata.patching' table, for example.
 
 ## TODO
 
@@ -108,6 +131,7 @@ from Esri specs only one type of query realized - select features by box.
 * [Обсуждение статьи на форуме ГИС-Лаб](http://gis-lab.info/forum/viewtopic.php?f=3&t=13731)
 * [Статья в блоге автора](http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html)
 * [ArcGIS Server REST API](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html)
+* [ArcGIS Server REST API - Layer (Feature Service)](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000w6000000)
 * Mapfeatureserver client - [web map viewer Cartobonus](http://www.allgis.org/cartobonus/help/)
 * Brothers in arms: [Papyrus](http://papyrus.readthedocs.org/en/latest/), [FeatureServer](http://featureserver.org/)
 

@@ -186,6 +186,7 @@ def dbTableInfo(table):
         ext = layermeta.getExtent(ds, table, geomfield)
         flds = layermeta.getFields(ds, table, oidfield)
     except Exception, e:
+        traceback.print_exc(file=sys.stderr)
         msg = u"SQL error: %s" % e
         flash(msg)
 
