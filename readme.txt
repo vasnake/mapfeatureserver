@@ -342,6 +342,50 @@ layer.name = Зоны полетов с ограничениями
 Теперь у нас есть свободный и бесплатный сервер Feature Layer-ов для обеспечения работы любого картографического софта,
 использующего спецификации ArcGIS REST API.
 
+=== Оно не работает! ===
+Поскольку, как я уже говорил, проект находится в стадии разработки, вполне вероятно, что вы не сможете заставить его работать
+с вашими данными. Безошибочным признаком того, что MFS не работает как должно, считается наличие Python traceback
+в окне с приложением Flask (модуль mapfs_controller.py).
+К примеру, это может выглядеть так:
+<pre>
+Traceback (most recent call last):
+  File "mapfs_controller.py", line 166, in layerOperations
+    resp = layerdata.layerData(lyrconf, ds, op)
+  File "C:\d\code\git\mapfeatureserver\wsgi\layerdata.py", line 65, in layerData
+    res = layerDataInBox(datasource.cursor, lyrconf, outSR, inpBox)
+  File "C:\d\code\git\mapfeatureserver\wsgi\layerdata.py", line 109, in layerDataInBox
+    box = esri.AGGeometryBox(inpBox)
+  File "C:\d\code\git\mapfeatureserver\wsgi\esri.py", line 47, in __init__
+    box = simplejson.loads(jsontext)
+  File "c:\d\Python27\lib\site-packages\simplejson\__init__.py", line 461, in loads
+    return _default_decoder.decode(s)
+  File "c:\d\Python27\lib\site-packages\simplejson\decoder.py", line 374, in decode
+    obj, end = self.raw_decode(s)
+  File "c:\d\Python27\lib\site-packages\simplejson\decoder.py", line 393, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+  File "c:\d\Python27\lib\site-packages\simplejson\scanner.py", line 119, in scan_once
+    return _scan_once(string, idx)
+  File "c:\d\Python27\lib\site-packages\simplejson\scanner.py", line 84, in _scan_once
+    raise JSONDecodeError(errmsg, string, idx)
+JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+</pre>
+Если вы столкнетесь с чем-то подобным, не пожалейте времени, скопируйте текст traceback-а и отправьте мне.
+По почте или, еще лучше, откройте issue на [https://github.com/vasnake/mapfeatureserver GitHub].
+
+Дополнительные сведения по настройке MFS.
+* Минимальный набор привилегий пользователя в PostgreSQL, пример:
+<pre>
+CREATE USER guest WITH password 'guest';
+ALTER USER guest SET search_path TO mfsdata,public;
+GRANT USAGE ON schema mfsdata TO guest;
+GRANT SELECT ON table mfsdata.patching TO guest;
+GRANT SELECT ON geometry_columns TO guest;
+GRANT SELECT ON geography_columns TO guest;
+GRANT SELECT ON spatial_ref_sys TO guest;
+</pre>
+Подразумевается, что пользователь 'guest', от имени которого должен работать Mapfeatureserver,
+должен иметь доступ на чтение к слою, хранимому в таблице 'mfsdata.patching'.
+
 == Ссылки ==
 * [http://resources.arcgis.com/en/help/rest/apiref/fslayer.html Спецификации REST API]
 * [http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html Статья в блоге автора]
