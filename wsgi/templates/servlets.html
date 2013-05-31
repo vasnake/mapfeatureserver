@@ -12,20 +12,29 @@
 
 {% block mainblockspan9 %}
     <h2>Map Feature Server (mapfeatureserver) endpoint</h2>
-    <p>Список обслуживаемых страниц и слоев MFS, генерируется автоматически по данным конфигурации.</p>
+    <p>
+        Список обслуживаемых страниц и слоев MFS, генерируется автоматически по данным конфигурации.
+        В запросе данных слоев использованы параметры запросов, значения этих параметров заданы произвольно и только в целях
+        демонстрации.
+    </p>
     <ul>
         {% for x in lst %}
-            <li> <a href="{{ x }}">{{ x|e }}</a> </li>
+            <!-- li> <a href="{{ x[0] }}">{{ x[1]|default(x[0]) }}</a> </li -->
+            {% if not x[1] == '' %}
+                <li> <a href="{{ x[0] }}">{{ x[1] }}</a> </li>
+            {% else %}
+                <li> <a href="{{ x[0] }}">{{ x[0] }}</a> </li>
+            {% endif %}
         {% endfor %}
     </ul>
-    <p>Примеры урлов службы</p>
+    <p>Тестовые примеры урлов службы, отладка характерных комбинаций параметров.</p>
     <ul>
     {% raw %}
-        <li><a href="0?&f=pjson">метаданные слоя 0</a>,
+        <li><a href="0?f=pjson">метаданные слоя 0</a>,
             <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0?f=pjson">эталон</a></li>
-        <li><a href="1?&f=pjson">метаданные слоя 1</a>,
+        <li><a href="1?f=pjson">метаданные слоя 1</a>,
             <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/1?f=pjson">эталон</a></li>
-        <li><a href="2?&f=pjson">метаданные слоя 2</a>,
+        <li><a href="2?f=pjson">метаданные слоя 2</a>,
             <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/2?f=pjson">эталон</a></li>
 
         <!-- li><a href="0/query?returnGeometry=true&geometryType=esriGeometryEnvelope

@@ -387,7 +387,7 @@ GRANT SELECT ON spatial_ref_sys TO guest;
 должен иметь доступ на чтение к слою, хранимому в таблице 'mfsdata.patching'.
 
 == Ссылки ==
-* [http://resources.arcgis.com/en/help/rest/apiref/fslayer.html Спецификации REST API]
+* [http://resources.arcgis.com/en/help/rest/apiref/fslayer.html Спецификации REST API] или, [http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000w6000000 более подробно, здесь]
 * [http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html Статья в блоге автора]
 * [https://github.com/vasnake/mapfeatureserver MFS на GitHub]
 * [http://www.allgis.org/cartobonus/help/ web map viewer Cartobonus]

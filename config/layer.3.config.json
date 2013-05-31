@@ -1,0 +1,1726 @@
+{
+ "currentVersion": 10.11,
+ "id": 0,
+ "name": "Детские учреждения",
+ "type": "Feature Layer",
+ "description": "",
+ "copyrightText": "",
+ "defaultVisibility": true,
+ "editFieldsInfo": null,
+ "ownershipBasedAccessControlForFeatures": null,
+ "syncCanReturnChanges": false,
+ "relationships": [],
+ "isDataVersioned": false,
+ "supportsRollbackOnFailureParameter": true,
+ "supportsStatistics": true,
+ "supportsAdvancedQueries": true,
+ "geometryType": "esriGeometryPoint",
+ "minScale": 0,
+ "maxScale": 0,
+ "extent": {
+  "xmin": -179.1285629999999,
+  "ymin": 41.585195000000226,
+  "xmax": 179.02966500000014,
+  "ymax": 73.26048300000008,
+  "spatialReference": {
+   "wkid": 4326,
+   "latestWkid": 4326
+  }
+ },
+ "drawingInfo": {
+  "renderer": {
+   "type": "uniqueValue",
+   "field1": "type",
+   "field2": null,
+   "field3": null,
+   "fieldDelimiter": ", ",
+   "defaultSymbol": {
+    "type": "esriSMS",
+    "style": "esriSMSCircle",
+    "color": [
+     0,
+     166,
+     116,
+     255
+    ],
+    "size": 4,
+    "angle": 0,
+    "xoffset": 0,
+    "yoffset": 0,
+    "outline": {
+     "color": [
+      0,
+      0,
+      0,
+      255
+     ],
+     "width": 1
+    }
+   },
+   "defaultLabel": "Неклассифицировано",
+   "uniqueValueInfos": [
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       217,
+       205,
+       137,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "детский дом",
+     "label": "детский дом",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       110,
+       162,
+       204,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "детский дом-интернат",
+     "label": "детский дом-интернат",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       84,
+       128,
+       74,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "детский приют",
+     "label": "детский приют",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       137,
+       145,
+       51,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "дом ребенка",
+     "label": "дом ребенка",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       237,
+       161,
+       240,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "соц.-реабилитационный центр",
+     "label": "соц.-реабилитационный центр",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       134,
+       250,
+       92,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "центр помощи сиротам",
+     "label": "центр помощи сиротам",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       133,
+       94,
+       74,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат",
+     "label": "школа-интернат",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       184,
+       74,
+       212,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 1-2 вида",
+     "label": "школа-интернат 1-2 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       237,
+       150,
+       109,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 3-4 вида",
+     "label": "школа-интернат 3-4 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       133,
+       120,
+       250,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 5 вида",
+     "label": "школа-интернат 5 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       58,
+       70,
+       140,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 6 вида",
+     "label": "школа-интернат 6 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       135,
+       57,
+       101,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 7 вида",
+     "label": "школа-интернат 7 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       85,
+       217,
+       179,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат 8 вида",
+     "label": "школа-интернат 8 вида",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       73,
+       179,
+       84,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат для сирот",
+     "label": "школа-интернат для сирот",
+     "description": ""
+    },
+    {
+     "symbol": {
+      "type": "esriSMS",
+      "style": "esriSMSCircle",
+      "color": [
+       232,
+       84,
+       88,
+       255
+      ],
+      "size": 4,
+      "angle": 0,
+      "xoffset": 0,
+      "yoffset": 0,
+      "outline": {
+       "color": [
+        0,
+        0,
+        0,
+        255
+       ],
+       "width": 1
+      }
+     },
+     "value": "школа-интернат кадетская",
+     "label": "школа-интернат кадетская",
+     "description": ""
+    }
+   ]
+  },
+  "transparency": 0,
+  "labelingInfo": null
+ },
+ "hasM": false,
+ "hasZ": false,
+ "allowGeometryUpdates": true,
+ "hasAttachments": false,
+ "htmlPopupType": "esriServerHTMLPopupTypeAsHTMLText",
+ "objectIdField": "id",
+ "globalIdField": "",
+ "displayField": "name",
+ "typeIdField": "type",
+  "fields": [
+    {
+      "alias": "CREATED_BY",
+      "domain": null,
+      "editable": false,
+      "name": "created_by",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "CREATED_ON",
+      "domain": null,
+      "editable": false,
+      "length": 36,
+      "name": "created_on",
+      "nullable": true,
+      "type": "esriFieldTypeDate"
+    },
+    {
+      "alias": "URL",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "url",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "INFO",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "info",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "GEO_ACCURACY",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "geo_accuracy",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "HISTORY",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "history",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ORPHANS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "orphans",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "DEVIATED",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "deviated",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "VOLUNTEERS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "volunteers",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PUBLICATIONS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "publications",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "FEDERAL_DISTRICT",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "federal_district",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "VEHICLES",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "vehicles",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "AGE",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "age",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PATRONAGE",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "patronage",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "BANK",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "bank",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PHONE",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "phone",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "DIRECTOR",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "director",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "HOLIDAYS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "holidays",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PARENT",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "parent",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "FOUNDATION",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "foundation",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PRINCIPLE",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "principle",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "FARMING",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "farming",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "TREATMENT",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "treatment",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "CHILDREN",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "children",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NEEDS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "needs",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "STAFF",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "staff",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "EDUCATION",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "education",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "TOYS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "toys",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "LIBRARY",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "library",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "BUILDINGS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "buildings",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "WORKING_CABINET",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "working_cabinet",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "COMMUNICATION",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "communication",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ACTIVITIES",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "activities",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "COMPUTERS",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "computers",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "POST",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "post",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NAME",
+      "domain": null,
+      "editable": false,
+      "length": 4000,
+      "name": "name",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "TYPE",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "type",
+      "nullable": false,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "DISTRICT",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "district",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "REGION",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "region",
+      "nullable": false,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "IDENT",
+      "domain": null,
+      "editable": false,
+      "length": 512,
+      "name": "ident",
+      "nullable": false,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "OBJECTID",
+      "domain": null,
+      "editable": false,
+      "name": "id",
+      "nullable": false,
+      "type": "esriFieldTypeOID"
+    }
+  ],
+ "types": [
+  {
+   "id": "детский дом",
+   "name": "детский дом",
+   "domains": {},
+   "templates": [
+    {
+     "name": "детский дом",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "детский дом",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 6 вида",
+   "name": "школа-интернат 6 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 6 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 6 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 3-4 вида",
+   "name": "школа-интернат 3-4 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 3-4 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 3-4 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 8 вида",
+   "name": "школа-интернат 8 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 8 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 8 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "дом ребенка",
+   "name": "дом ребенка",
+   "domains": {},
+   "templates": [
+    {
+     "name": "дом ребенка",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "дом ребенка",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 5 вида",
+   "name": "школа-интернат 5 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 5 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 5 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат для сирот",
+   "name": "школа-интернат для сирот",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат для сирот",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат для сирот",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "центр помощи сиротам",
+   "name": "центр помощи сиротам",
+   "domains": {},
+   "templates": [
+    {
+     "name": "центр помощи сиротам",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "центр помощи сиротам",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "детский приют",
+   "name": "детский приют",
+   "domains": {},
+   "templates": [
+    {
+     "name": "детский приют",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "детский приют",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат",
+   "name": "школа-интернат",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "детский дом-интернат",
+   "name": "детский дом-интернат",
+   "domains": {},
+   "templates": [
+    {
+     "name": "детский дом-интернат",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "детский дом-интернат",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 7 вида",
+   "name": "школа-интернат 7 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 7 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 7 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат 1-2 вида",
+   "name": "школа-интернат 1-2 вида",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат 1-2 вида",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат 1-2 вида",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "школа-интернат кадетская",
+   "name": "школа-интернат кадетская",
+   "domains": {},
+   "templates": [
+    {
+     "name": "школа-интернат кадетская",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "школа-интернат кадетская",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  },
+  {
+   "id": "соц.-реабилитационный центр",
+   "name": "соц.-реабилитационный центр",
+   "domains": {},
+   "templates": [
+    {
+     "name": "соц.-реабилитационный центр",
+     "description": "",
+     "prototype": {
+      "attributes": {
+       "created_by": null,
+       "id": null,
+       "ident": null,
+       "region": null,
+       "district": null,
+       "type": "соц.-реабилитационный центр",
+       "name": null,
+       "post": null,
+       "computers": null,
+       "activities": null,
+       "communicat": null,
+       "working_ca": null,
+       "buildings": null,
+       "library": null,
+       "toys": null,
+       "education": null,
+       "staff": null,
+       "needs": null,
+       "children": null,
+       "treatment": null,
+       "farming": null,
+       "principle": null,
+       "foundation": null,
+       "parent": null,
+       "holidays": null,
+       "director": null,
+       "phone": null,
+       "bank": null,
+       "patronage": null,
+       "age": null,
+       "vehicles": null,
+       "federal_di": null,
+       "publicatio": null,
+       "volunteers": null,
+       "deviated": null,
+       "orphans": null,
+       "history": null,
+       "geo_accura": null,
+       "info": null,
+       "url": null,
+       "created_on": null
+      }
+     },
+     "drawingTool": "esriFeatureEditToolPoint"
+    }
+   ]
+  }
+ ],
+ "templates": [],
+ "maxRecordCount": 1000,
+ "supportedQueryFormats": "JSON, AMF",
+ "capabilities": "Create,Delete,Query,Update,Uploads,Editing"
+}

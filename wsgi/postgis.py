@@ -44,7 +44,7 @@ PGTEXT_LENGTH = 4000
 PGTIMESTAMP_LENGTH = 36  # 19 symbols "2013-05-29 18:09:00"; AGS shows: (type: esriFieldTypeDate, length: 36)
 # timestamp [ (p) ] [ without time zone ] 8 bytes according to http://www.postgresql.org/docs/9.0/static/datatype-datetime.html
 
-COLTYPESGEOM = (16912, 16397)
+COLTYPESGEOM = (16912, 16397, 1441608681)
 # Geometry columns type_code values
 
 TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger",
@@ -274,7 +274,10 @@ def fieldFromDescr(col, oidfield):
     TODO: rewrite function, field parameters must be parsed from layer metadata from layer config.
     Field alias and type actually.
     """
-#    print col  # Column(name='testtimestamp', type_code=1114, display_size=None, internal_size=8, precision=None, scale=None, null_ok=None)
+#    debug info
+#    print col  # Column(name='geometry', type_code=1441608681, display_size=None, internal_size=1107452, precision=None, scale=None, null_ok=None)
+    # PG field type 'timestamp':
+    # Column(name='testtimestamp', type_code=1114, display_size=None, internal_size=8, precision=None, scale=None, null_ok=None)
     # PG field type 'text':
     # Column(name='testtext', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
     # Column(name='shape', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)

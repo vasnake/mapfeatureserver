@@ -68,6 +68,8 @@ class AGLayerOpQuery(AGLayerOperation):
     """ Feature Server 'query' operation parameters.
 
     http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+
+    TODO: validate query parameters (SQL injections may be disaster).
     """
     def __init__(self, args):
         self.rawArgs = args
@@ -80,16 +82,49 @@ class AGLayerOpQuery(AGLayerOperation):
         For gmap/openstreet/bing outSR = 102100 or 3857
         """
         return self.rawArgs.get('outSR', 0)
-    #inpBox =
+
+    @property
+    def spatRelation(self):
+        """ Get spatialRel value from request params.
+        Returns 'esriSpatialRelIntersects' or  ... or ''.
+        """
+        return self.rawArgs.get('spatialRel', '')
+
+    @property
+    def geomType(self):
+        """ Get geometryType value from request params.
+        Returns 'esriGeometryEnvelope' or 'esriGeometryPolygon' or ... or ''.
+        """
+        return self.rawArgs.get('geometryType', '')
 
     @property
     def geometry(self):
         """ Get geometry value from request params.
         Return json text or ''.
-        Example: if geometryType=esriGeometryEnvelope
-        geometry='{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
+
+        Example:
+            if geometryType=esriGeometryEnvelope
+            geometry='{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
+
+            if geometryType=esriGeometryPolygon
+            geometry='{
+                "spatialReference":{"wkid":102100},
+                "rings":[ [
+                        [-3580921.90110393,-273950.309374072],
+                        [-3580921.90110393,15615167.6343221],
+                        [20037508.3427892,15615167.6343221],
+                        [20037508.3427892,-273950.309374072],
+                        [-3580921.90110393,-273950.309374072]
+                    ], [
+                        [-20037508.3427892,-273950.309374072],
+                        [-20037508.3427892,15615167.6343221],
+                        [-18609053.1581958,15615167.6343221],
+                        [-18609053.1581958,-273950.309374072],
+                        [-20037508.3427892,-273950.309374072]
+                    ] ] }'
         """
         return self.rawArgs.get('geometry', '')
+#    def geometry(self):
 #class AGLayerOpQuery(AGLayerOperation):
 
 

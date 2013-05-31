@@ -74,7 +74,8 @@ def mainPage():
     """
     lst = []
     for x in ('mainPage', 'helpPage', 'favicon', 'clientaccesspolicy'):
-        lst.append(url_for(x))
+        # static pages
+        lst.append((url_for(x), ''))
 
     ini = mfslib.getIniData(APP)
     lyrs = mfslib.getLyrsList(ini)
@@ -83,18 +84,25 @@ def mainPage():
         fldname = ini.get(lyrid, 'layer.geomfield')
         oidname = ini.get(lyrid, 'layer.oidfield')
 
-        lst.append(url_for('layerController', layerid=lyrid))
-        lst.append(url_for('layerOperations', layerid=lyrid, operation='query',
+        # stored metadata
+        lst.append((url_for('layerController', layerid=lyrid), 'Layer %s metadata' % lyrid))
+
+        # layer data query
+        lst.append((url_for('layerOperations', layerid=lyrid, operation='query',
             geometry='{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}',
             outSR='102100',
+            spatialRel='esriSpatialRelIntersects',
+            geometryType='esriGeometryEnvelope',
 #             returnGeometry='true',
-#             geometryType='esriGeometryEnvelope',
 #             inSR='102100',
-#             spatialRel='esriSpatialRelIntersects',
 #             outFields='*',
 #             f='pjson'
-        ))
-        lst.append(url_for('dbTableInfo', table=tabname, geomfield=fldname, oidfield=oidname))
+        ), 'Layer %s data query by box' % lyrid))
+
+        # metadata extraction
+        lst.append((url_for('dbTableInfo',
+                            table=tabname, geomfield=fldname, oidfield=oidname),
+                    'Layer %s DB table info' % lyrid))
 
     return render_template('servlets.html', lst=lst)
 #def mainPage():
@@ -118,6 +126,14 @@ def layerController(layerid=0):
     f=json by default
     """
     # layer metadata .../FeatureServer/0?f=pjson
+    ini = mfslib.getIniData(APP)
+    lyrs = mfslib.getLyrsList(ini)
+
+    if not (str(layerid) in lyrs):
+        resp = esri.errorObject(
+            details=u"Invalid query parameters: layerid %s not in %s" % (layerid, lyrs))
+        return makeResponce(resp)
+
     stordir = APP.config['DATA_FILES_ROOTDIR']
     text = layermeta.layerMeta(layerid, stordir)
     resp = make_response(text)
