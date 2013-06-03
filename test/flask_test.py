@@ -35,7 +35,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
     def testRootPage(self):
         """ Check root page (/) output.
         """
-        txt = u'''<a href="/0/query?geometry=%7B%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D&amp;outSR=102100">/0/query?geometry=%7B%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D&amp;outSR=102100</a>'''
+        txt = u'''<a href="/0/query?outSR=102100&amp;geometryType=esriGeometryEnvelope&amp;geometry=%7B%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A%7B%22wkid%22%3A102100%7D%7D&amp;spatialRel=esriSpatialRelIntersects">Layer 0 data query by box</a>'''
         rv = self.app.get('/')
         self.assertIn(txt.encode(CP), rv.data)  # http://docs.python.org/2/library/unittest.html#assert-methods
 
@@ -63,7 +63,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         "x": 3980475.9450405277,
         "y": 6976079.279805333'''
         #~ txt = txt.replace(',', ', ')
-        rv = self.app.get('''/0/query?geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
+        rv = self.app.get('''/0/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
         self.assertIn(txt.encode(CP), rv.data)
         err = u'''"error": {'''
         self.assertNotIn(err.encode(CP), rv.data)
@@ -82,7 +82,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         txt2 = u' '.join(txt2.split())
 
         # dozen records
-        rv = self.app.get('''/1/query?geometry={"xmin"%3a6593024.93074047%2c"ymin"%3a10538006.415246%2c"xmax"%3a6641944.62884298%2c"ymax"%3a10569039.8487298%2c"spatialReference"%3a{"wkid"%3a102100}}&outSR=102100''')
+        rv = self.app.get('''/1/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={"xmin"%3a6593024.93074047%2c"ymin"%3a10538006.415246%2c"xmax"%3a6641944.62884298%2c"ymax"%3a10569039.8487298%2c"spatialReference"%3a{"wkid"%3a102100}}&outSR=102100''')
         data = ' '.join(rv.data.split())
         self.assertNotIn(err.encode(CP), rv.data)
         self.assertIn(txt1.encode(CP), rv.data)
@@ -100,7 +100,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
             "objectIdFieldName": "gid" }'''
         txt = u' '.join(txt.split())
         # no features
-        rv = self.app.get('''/1/query?geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
+        rv = self.app.get('''/1/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
         data = ' '.join(rv.data.split())
         self.assertNotIn(err.encode(CP), rv.data)
         self.assertIn(txt.encode(CP), data)
@@ -124,7 +124,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         txt1 = u' '.join(txt1.split())
         txt2 = u' '.join(txt2.split())
         # features > 1000
-        rv = self.app.get('''/1/query?geometry={"xmin"%3a-7182265.21424325%2c"ymin"%3a-1567516.84684806%2c"xmax"%3a17864620.2142433%2c"ymax"%3a14321601.0968481%2c"spatialReference"%3a{"wkid"%3a102100}}&outSR=102100''')
+        rv = self.app.get('''/1/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={"xmin"%3a-7182265.21424325%2c"ymin"%3a-1567516.84684806%2c"xmax"%3a17864620.2142433%2c"ymax"%3a14321601.0968481%2c"spatialReference"%3a{"wkid"%3a102100}}&outSR=102100''')
         self.assertNotIn(err.encode(CP), rv.data)
         data = ' '.join(rv.data.split())
         self.assertIn(txt1.encode(CP), data)
@@ -159,7 +159,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         txt2 = u' '.join(txt2.split())
 
         # dozen records
-        rv = self.app.get('''/2/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a4103424.83887823%2c%22ymin%22%3a7491699.58654681%2c%22xmax%22%3a4494782.42369833%2c%22ymax%22%3a7726819.88555201%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson''')
+        rv = self.app.get('''/2/query?geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a4103424.83887823%2c%22ymin%22%3a7491699.58654681%2c%22xmax%22%3a4494782.42369833%2c%22ymax%22%3a7726819.88555201%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson''')
         data = ' '.join(rv.data.split())
         self.assertNotIn(err.encode(CP), rv.data)
         self.assertIn(txt1.encode(CP), rv.data)

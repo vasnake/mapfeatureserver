@@ -44,8 +44,16 @@ PGTEXT_LENGTH = 4000
 PGTIMESTAMP_LENGTH = 36  # 19 symbols "2013-05-29 18:09:00"; AGS shows: (type: esriFieldTypeDate, length: 36)
 # timestamp [ (p) ] [ without time zone ] 8 bytes according to http://www.postgresql.org/docs/9.0/static/datatype-datetime.html
 
-COLTYPESGEOM = (16912, 16397, 1441608681)
-# Geometry columns type_code values
+REGULAR_TYPES = []
+for typ in (psycopg2.STRING.values, psycopg2.DATETIME.values, psycopg2.BINARY.values,
+            psycopg2.NUMBER.values, psycopg2.ROWID.values,
+            psycopg2.extensions.UNICODE.values, psycopg2.extensions.DECIMAL.values,
+            psycopg2.extensions.FLOAT.values, psycopg2.extensions.BOOLEAN.values,
+            psycopg2.extensions.LONGINTEGER.values, psycopg2.extensions.INTEGER.values,
+            psycopg2.extensions.DATE.values, psycopg2.extensions.TIME.values):
+    for tc in typ:
+        REGULAR_TYPES.append(tc)
+# Postgres regular datatype codes
 
 TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger",
                  1043: u"esriFieldTypeString", 25: u"esriFieldTypeString",
@@ -281,7 +289,8 @@ def fieldFromDescr(col, oidfield):
     # PG field type 'text':
     # Column(name='testtext', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
     # Column(name='shape', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
-    if col.type_code in COLTYPESGEOM or unicode(col.name) == u'shape':
+
+    if col.type_code not in REGULAR_TYPES or unicode(col.name) == u'shape':
         return None
 
     ftype = TYPECODE2ESRI[col.type_code]
@@ -352,7 +361,7 @@ def featuresFromCursor(cur):
                 shape = simplejson.loads(rec[colnum])
                 geometryType, geometry = esri.geoJson2agJson(shape)
                 continue
-            if col.type_code in COLTYPESGEOM:
+            if col.type_code not in REGULAR_TYPES:
                 continue
             attributes[col.name] = rec[colnum]
 
