@@ -58,25 +58,18 @@ def layerData(lyrconf, datasource, operation):
 
     if isinstance(operation, esri.AGLayerOpQuery):
         #spatialReference - из параметра «outSR=102100» запроса
-        outSR = operation.outSR
         # spatial filter multipolygon or box: '{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
-        inpGeom = operation.geometry
-        inpGeomType = operation.geomType
-        spatRel = operation.spatRelation
-        if not spatRel or not inpGeom or not inpGeomType or not outSR:
+        spatFltParams = esri.SpatialFilterParams(operation.outSR, operation.geometry,
+                                                 operation.geomType, operation.spatRelation)
+        if not spatFltParams.isAllSet():
             raise TypeError('For now, layer data may be filtered by geometry only')
 
-        # TODO: move data operations to DataSource Class
         if isinstance(datasource, postgis.DataSource):
-            # TODO: replace box filter by higher abstraction
 #            res = layerDataFilterByGeom(datasource, lyrconf, outSR, inpGeom, inpGeomType, spatRel)
-            if inpGeomType == 'esriGeometryEnvelope':
-                res = layerDataInBox(datasource.cursor, lyrconf, outSR, inpGeom)
-            else:
-                res = layerDataFilterByGeom(datasource, lyrconf, outSR, inpGeom, inpGeomType, spatRel)
-
+            res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams)
         else:
             raise TypeError('Unknown datasource')
+
     else:
         raise TypeError('Unsupported layer operation')
 
@@ -85,8 +78,8 @@ def layerData(lyrconf, datasource, operation):
 #def layerData(lyrconf, datasource, operation):
 
 
-def layerDataFilterByGeom(datasource, lyrinfo, outSR, inpGeom, inpGeomType, spatRel):
-    """ Return layer data from DB as dictionary formed by Esri spec.
+def layerDataFilterByGeom(datasource, lyrinfo, spatfilter):
+    """ Return layer data from DB. Output formed as dictionary according to Esri spec.
     Features will be spatially filtered by inpGeom.
 
     spes:
@@ -99,24 +92,32 @@ def layerDataFilterByGeom(datasource, lyrinfo, outSR, inpGeom, inpGeomType, spat
 
     Args:
         datasource: postgis.DataSource object;
-        lyrinfo: LayerInfoDB object with
+        lyrinfo: layermeta.LayerInfo object with
             LayerInfo.tabname: layer table name;
             LayerInfo.geomfield: name for table field with geometry;
             LayerInfo.oidfield: name for field with OBJECTID;
-        outSR: integer from request, e.g. 'outSR=102100' which is srid for projecting DB geometry data to;
-        inpGeom: json string, filter geometry object from request e.g.
+        spatfilter: esri.SpatialFilterParams with filter data gathered from query:
+            outSR: integer from request, e.g. 'outSR=102100' which is srid for projecting DB geometry data to;
+            agsGeom: json string, filter geometry object from request e.g.
             'geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
-        inpGeomType: string, input geometry type, one of (esriGeometryEnvelope, esriGeometryPolygon)
-        spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
+            geomType: string, input geometry type, one of (esriGeometryEnvelope, esriGeometryPolygon)
+            spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
     """
-    raise TypeError('Layer data filter by esriGeometryPolygon not realized yet')
-    # TODO: check parameters and send them to DataSource; get returned dictionary and pass it out.
-    return res
+    assert isinstance(spatfilter, esri.SpatialFilterParams)
+    inpGeomSR, inpGeomWKT = esri.AGGeoJSON2WKT(spatfilter.agsGeom, spatfilter.geomType)
+    spatfilter = esri.OGCSpatialFilterParams(spatfilter, inpGeomSR, inpGeomWKT)
+
+    if isinstance(datasource, postgis.DataSource):
+#        return datasource.filterLayerDataByGeom(lyrinfo, outSR, inpGeomWKT, inpGeomSR, spatRel)
+        return datasource.filterLayerDataByGeom(lyrinfo, spatfilter)
+    else:
+        raise TypeError("Only PostGIS datasource availible, '%s' not supported yet" % type(datasource))
 #def layerDataFilterByGeom(datasource, lyrconf, outSR, inpGeom, inpGeomType, spatRel):
 
 
 def layerDataInBox(cur, lyrinfo, outSR, inpBox):
-    """ Return layer data from DB as dictionary formed by Esri spec.
+    """ Obsolete.
+    Return layer data from DB as dictionary formed by Esri spec.
     Features will be spatially filtered by inpBox.
 
     spes:

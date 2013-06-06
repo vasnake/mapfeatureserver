@@ -45,6 +45,7 @@ PGTIMESTAMP_LENGTH = 36  # 19 symbols "2013-05-29 18:09:00"; AGS shows: (type: e
 # timestamp [ (p) ] [ without time zone ] 8 bytes according to http://www.postgresql.org/docs/9.0/static/datatype-datetime.html
 
 REGULAR_TYPES = []
+# Postgres regular datatype codes
 for typ in (psycopg2.STRING.values, psycopg2.DATETIME.values, psycopg2.BINARY.values,
             psycopg2.NUMBER.values, psycopg2.ROWID.values,
             psycopg2.extensions.UNICODE.values, psycopg2.extensions.DECIMAL.values,
@@ -53,7 +54,6 @@ for typ in (psycopg2.STRING.values, psycopg2.DATETIME.values, psycopg2.BINARY.va
             psycopg2.extensions.DATE.values, psycopg2.extensions.TIME.values):
     for tc in typ:
         REGULAR_TYPES.append(tc)
-# Postgres regular datatype codes
 
 TYPECODE2ESRI = {23: u"esriFieldTypeInteger", 21: u"esriFieldTypeSmallInteger",
                  1043: u"esriFieldTypeString", 25: u"esriFieldTypeString",
@@ -108,6 +108,70 @@ class DataSource(mfslib.IDataSource):
 
     def __del__(self):
         self.cursor.close()
+
+    def filterLayerDataByGeom(self, lyrinfo, spatfilter):
+        """ Answer for client query.
+        Returns layer data from DB. Output formed as dictionary according to Esri spec.
+        Features will be spatially filtered by spatfilter.geometry.
+
+        specs:
+            http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+            http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Query_Feature_Service_Layer/02r3000000r1000000/
+
+        query example:
+            http://vags101.algis.com/arcgis/rest/services/PATHING/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson
+            http://vdesk.algis.com:5000/3/query?returnGeometry=true&geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=json&_ts=635056144548740692&
+
+        Args:
+            lyrinfo: layermeta.LayerInfo object with
+                LayerInfo.tabname: layer table name;
+                LayerInfo.geomfield: name for table field with geometry;
+                LayerInfo.oidfield: name for field with OBJECTID;
+            spatfilter: esri.OGCSpatialFilterParams with spatial filter parameters:
+                outSR: integer from request, e.g. 'outSR=102100' which is srid for projecting DB geometry data to;
+                inpGeomWKT: string, geometry in OGC WKT representation. Spatial filter will be
+                    constructed from that geometry.
+                inpGeomSR: integer, input geometry spatial reference WKID.
+                spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
+        """
+        assert isinstance(spatfilter, esri.OGCSpatialFilterParams)
+
+        if spatfilter.spatRel == esri.SpatialRelations.esriSpatialRelIntersects:
+            pass
+        else:
+            raise TypeError("Layer data filter with '%s' not realized yet" % spatfilter.spatRel)
+
+        queryRes = {"objectIdFieldName": lyrinfo.oidfield, "globalIdFieldName": "", "features": []}
+
+        # srid for projecting data to
+        outSrid = postgisSRID(spatfilter.outSR)
+        # and from
+        inSrid = postgisSRID(spatfilter.geomSR)
+
+        # output "spatialReference": ...
+        spatialReference = {"wkid": int(spatfilter.outSR), "latestWkid": outSrid}
+
+        # sql query
+        sql = sqlSelectAllByWKTGeom(lyrinfo, outSrid, spatfilter.wktGeom, inSrid)
+#        print sql
+        cur = self.cursor
+        cur.execute(sql)
+        if not cur.rowcount is None and cur.rowcount > 0:
+            #output "fields": [ { "name": "descr",   "alias": "Описание",   "type": "esriFieldTypeString",   "length": 100 },...
+            #  из описания курсора «for rec in cur.description:»
+            fields = attrFieldsFromDescr(cur, lyrinfo)
+
+            #"geometryType": "esriGeometryPoint",   - из первой же записи выборки, поле «shape»
+            #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
+            geometryType, features = featuresFromCursor(cur)
+
+            queryRes = {"geometryType": geometryType, "spatialReference": spatialReference,
+                        "fields": fields, "features": features}
+            if cur.rowcount >= 1000:
+                queryRes["exceededTransferLimit"] = True
+
+        return queryRes
+#    def filterLayerDataByGeom(self, lyrinfo, outSR, inpGeomWKT, inpGeomSR, spatRel):
 #class DataSource(object):
 
 
@@ -229,8 +293,37 @@ def tableFields4esri(ds, tabname, oidfname):
 #def tableFields4esri(cur, tabname):
 
 
+def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid):
+    """ Return SQL text for 'select *, shape ... limit 1000' query with 'intersect' spatial filter.
+    Field 'shape' is st_asgeojson text for geometry field.
+
+    Args:
+        lyrinfo: DBLayerInfo object with
+            LayerInfo.tabname: layer table name;
+            LayerInfo.geomfield: name for table field with geometry;
+            LayerInfo.oidfield: name for field with OBJECTID;
+        outSrid: integer, PostGIS srid for output projection;
+        wktGeom: OGC WKT geometry for spatial filter;
+    """
+    assert isinstance(lyrinfo, layermeta.DBLayerInfo)
+
+    sql = """select *, st_asgeojson(1, st_transform({gcol}::geometry, {outsrid})) as shape
+        from {table} where not st_disjoint(
+            {gcol}::geometry,
+            ST_transform(
+                ST_GeomFromText('{wkt}', {insrid})
+                , st_srid({gcol}::geometry) )
+        ) order by {pk} limit 1000;
+        """.format(gcol=lyrinfo.geomfield, outsrid=outSrid, table=lyrinfo.tabname,
+            wkt=wktGeom, insrid=inSrid, pk=lyrinfo.oidfield)
+
+    return sql
+#def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, inpGeomWKT, inSrid)
+
+
 def sqlSelectAllByBox(lyrinfo, outSrid, box):
-    """ Return SQL text for 'select *, shape ...' query with spatial filter.
+    """ Obsolete.
+    Return SQL text for 'select *, shape ...' query with spatial filter.
     Field 'shape' is st_asgeojson text for geometry field.
 
         Args:

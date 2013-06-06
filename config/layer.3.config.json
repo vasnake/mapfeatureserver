@@ -1,10 +1,10 @@
 {
  "currentVersion": 10.11,
- "id": 0,
+ "id": 3,
  "name": "Детские учреждения",
  "type": "Feature Layer",
- "description": "",
- "copyrightText": "",
+ "description": "Данные проекта ГИС-Лаб",
+ "copyrightText": "(c) Gis-Lab",
  "defaultVisibility": true,
  "editFieldsInfo": null,
  "ownershipBasedAccessControlForFeatures": null,
@@ -43,7 +43,7 @@
      116,
      255
     ],
-    "size": 4,
+    "size": 11,
     "angle": 0,
     "xoffset": 0,
     "yoffset": 0,
@@ -69,7 +69,7 @@
        137,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -97,7 +97,7 @@
        204,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -125,7 +125,7 @@
        74,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -153,7 +153,7 @@
        51,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -181,7 +181,7 @@
        240,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -209,7 +209,7 @@
        92,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -237,7 +237,7 @@
        74,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -265,7 +265,7 @@
        212,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -293,7 +293,7 @@
        109,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -321,7 +321,7 @@
        250,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -349,7 +349,7 @@
        140,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -377,7 +377,7 @@
        101,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -405,7 +405,7 @@
        179,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -433,7 +433,7 @@
        84,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,
@@ -461,7 +461,7 @@
        88,
        255
       ],
-      "size": 4,
+      "size": 11,
       "angle": 0,
       "xoffset": 0,
       "yoffset": 0,

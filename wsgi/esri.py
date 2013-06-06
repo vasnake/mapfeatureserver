@@ -37,6 +37,63 @@ GEOJSON_ESRI_GEOMTYPES = {u'Point': u'esriGeometryPoint',
 # GeoJSON geometry types map to. ArcGIS geometry types
 
 
+class GeometryTypes:
+    """ Enum of names for ArcGIS geometry data types
+    """
+    esriGeometryEnvelope = u'esriGeometryEnvelope'
+    esriGeometryPolygon = u'esriGeometryPolygon'
+
+    def __init__(self):
+        """placeholder"""
+        pass
+#class GeometryTypes:
+
+
+class SpatialRelations:
+    """ Enum of names for ArcGIS spatial relations types
+    """
+    esriSpatialRelIntersects = u'esriSpatialRelIntersects'
+
+    def __init__(self):
+        """placeholder"""
+        pass
+#class SpatialRelations:
+
+
+class SpatialFilterParams(object):
+    """ Parameters for spatial filter.
+    Geometry, geometry SR, result SR, spatial relation.
+    """
+    def __init__(self, outSR, agsGeom, geomType, spatRel):
+        """ ArcGIS specified spatial query parameters.
+        """
+        self.outSR = outSR
+        self.agsGeom = agsGeom
+        self.geomType = geomType
+        self.spatRel = spatRel
+
+    def isAllSet(self):
+        """ Check filter parameters
+        """
+        if not self.spatRel or not self.agsGeom or not self.geomType or not self.outSR:
+            return False
+        return True
+#class SpatialFilterParams(object)
+
+
+class OGCSpatialFilterParams(SpatialFilterParams):
+    """ Extended esri.SpatialFilterParams data structure
+    """
+    def __init__(self, esriSF, inpSR, geomWKT):
+        """ Set esri.SpatialFilterParams members and set own InputGeomSpatialRef, InputGeomWKT data.
+        """
+        self.geomSR = inpSR
+        self.wktGeom = geomWKT
+        assert isinstance(esriSF, SpatialFilterParams)
+        super(OGCSpatialFilterParams, self).__init__(esriSF.outSR, esriSF.agsGeom, esriSF.geomType, esriSF.spatRel)
+#class OGCSpatialFilterParams(SpatialFilterParams):
+
+
 class AGGeometryBox(object):
     """ ArcGIS geometry structure for Envelope or Box
     """
@@ -81,7 +138,7 @@ class AGLayerOpQuery(AGLayerOperation):
         Return spatref wkid or 0.
         For gmap/openstreet/bing outSR = 102100 or 3857
         """
-        return self.rawArgs.get('outSR', 0)
+        return int(self.rawArgs.get('outSR', 0))
 
     @property
     def spatRelation(self):
@@ -212,3 +269,66 @@ def geoJson2agJson(shape):
 
     return (geometryType, geometry)
 #def geoJson2agJson(shape):
+
+
+def AGGeoJSON2WKT(inpGeom, inpGeomType):
+    """ Returns tuple (geomSR, geomWKT) that is OGC geometry SpatialReference WKID and geometry WKT
+    converted from ArcGIS variation of GeoJSON.
+
+    Args:
+        inpGeom: json string, filter geometry object from request e.g.
+            geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}
+            or
+            geometry={"spatialReference":{"wkid":102100}, "rings":[ [ [-3580921.90110393,-273950.309374072], [-3580921.90110393,15615167.6343221], [20037508.3427892,15615167.6343221], [20037508.3427892,-273950.309374072], [-3580921.90110393,-273950.309374072] ],[ [-20037508.3427892,-273950.309374072], [-20037508.3427892,15615167.6343221], [-18609053.1581958,15615167.6343221], [-18609053.1581958,-273950.309374072], [-20037508.3427892,-273950.309374072] ] ] }
+        inpGeomType: string, input geometry type, one of (esriGeometryEnvelope, esriGeometryPolygon)
+    """
+    if inpGeomType == GeometryTypes.esriGeometryEnvelope:
+        box = AGGeometryBox(inpGeom)
+        geomSR = box.srWkid
+        geomWKT = """POLYGON((%s %s, %s %s, %s %s, %s %s, %s %s))""" % (
+                  box.xmin, box.ymin, box.xmax, box.ymin, box.xmax, box.ymax,
+                  box.xmin, box.ymax, box.xmin, box.ymin)
+
+    elif inpGeomType == GeometryTypes.esriGeometryPolygon:
+        pgon = simplejson.loads(inpGeom)
+        geomSR = pgon['spatialReference']['wkid']
+        geomWKT = AGGeoJSONPolygon2WKT(pgon)
+
+    else:
+        raise TypeError("Geometry type '%s' haven't transformation yet" % inpGeomType)
+
+#    print geomWKT
+    return (geomSR, geomWKT)
+#def AGGeoJSON2WKT(inpGeom, inpGeomType)
+
+
+def AGGeoJSONPolygon2WKT(pgon):
+    """ Returns OGC WKT multipolygon created from ArcGIS GeoJSON esriGeometryPolygon.
+
+    Args:
+        pgon: dictionary loaded from AGS GeoJSON, e.g.
+        inpGeom = '{"spatialReference":{"wkid":102100}, "rings":[ [ [-3580921.90110393,-273950.309374072], [-3580921.90110393,15615167.6343221], [20037508.3427892,15615167.6343221], [20037508.3427892,-273950.309374072], [-3580921.90110393,-273950.309374072] ],[ [-20037508.3427892,-273950.309374072], [-20037508.3427892,15615167.6343221], [-18609053.1581958,15615167.6343221], [-18609053.1581958,-273950.309374072], [-20037508.3427892,-273950.309374072] ] ] }'
+        pgon = simplejson.loads(inpGeom)
+    """
+    wktMPoly = ''
+    for ring in pgon['rings']:
+#            print "ring: '%s'" % ring
+        wktPoly = ''
+        for point in ring:
+#                print "point: '%s'" % point
+            xy = "%r %r" % (point[0], point[1])
+            if wktPoly:
+                wktPoly = ',\n'.join((wktPoly, xy))
+            else:
+                wktPoly = xy
+
+        #~ print "wktPoly: '%s'" % wktPoly
+        if wktMPoly:
+            wktMPoly = '\n)), ((\n'.join((wktMPoly, wktPoly))
+        else:
+            wktMPoly = wktPoly
+
+    if wktMPoly:
+        wktMPoly = 'MULTIPOLYGON( ((\n' + wktMPoly + '\n)) )'
+    return wktMPoly
+#def AGGeoJSONPolygon2WKT(pgon):
