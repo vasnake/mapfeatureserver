@@ -20,6 +20,7 @@ if pth not in sys.path:
 import mapfs_controller
 
 FASTCHECK = False
+DEVDSN = False
 CP = 'UTF-8'
 
 class MFSFlaskAppTestCase(unittest.TestCase):
@@ -32,6 +33,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testRootPage(self):
         """ Check root page (/) output.
         """
@@ -39,6 +41,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         rv = self.app.get('/')
         self.assertIn(txt.encode(CP), rv.data)  # http://docs.python.org/2/library/unittest.html#assert-methods
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayerInfo(self):
         """ Check layer 0 metadata page (/0) output.
         """
@@ -49,6 +52,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         rv = self.app.get('/0')
         self.assertIn(txt.encode(CP), rv.data)
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayer0Data(self):
         """ Check layer 0 query result page (/0/query?...) output.
         """
@@ -69,6 +73,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         self.assertNotIn(err.encode(CP), rv.data)
 
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayer1Data(self):
         """ Check layer 1 query result page (/1/query?...) output.
         """
@@ -90,6 +95,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
 #    def testLayer1Data(self):
 
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayer1EmptyRecset(self):
         """ Check layer 1 query result page (/1/query?...) for empty recordset.
         """
@@ -107,6 +113,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
 #    def testLayer1EmptyRecset(self):
 
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     @unittest.skipIf(FASTCHECK, 'huge and slow recordset processing')
     def testLayer1HugeRecset(self):
         """ Check layer 1 query result page (/1/query?...) for features > 1000 recordset.
@@ -133,6 +140,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
 #    def testLayer1HugeRecset(self):
 
 
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayer2Data(self):
         """ Check layer 2 query result page (/2/query?...) output.
         Record "recid": 143
@@ -158,7 +166,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
             ],'''
         txt2 = u' '.join(txt2.split())
 
-        # dozen records
+        # dozen of records
         rv = self.app.get('''/2/query?geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a4103424.83887823%2c%22ymin%22%3a7491699.58654681%2c%22xmax%22%3a4494782.42369833%2c%22ymax%22%3a7726819.88555201%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson''')
         data = ' '.join(rv.data.split())
         self.assertNotIn(err.encode(CP), rv.data)
@@ -167,6 +175,47 @@ class MFSFlaskAppTestCase(unittest.TestCase):
 #    def testLayer2Data(self):
 
 
+    @unittest.skipIf(DEVDSN, "need developer DB DSN")
+    def testLayer3DataByPolygon(self):
+        """ Check layer 3 query by polygon result page (/3/query?...) output.
+        """
+        err = u'''"error": {'''
+        txt1 = u'''"geo_accuracy": "до улицы"'''
+        txt2 = u'''"geometry": {
+            "x": 3471199.538874946,
+            "y": 9661660.43442387
+        }'''
+        txt2 = u' '.join(txt2.split())
+
+        # > 1000 recs
+        rv = self.app.get('''/3/query?returnGeometry=true&geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson''')
+        data = ' '.join(rv.data.split())
+        self.assertNotIn(err.encode(CP), rv.data)
+        self.assertIn(txt1.encode(CP), rv.data)
+        self.assertIn(txt2.encode(CP), data)
+
+        # min set of parameters (geometryType, geometry))
+        rv = self.app.get('''/3/query?geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&f=pjson''')
+        data = ' '.join(rv.data.split())
+        txt1 = u'''"name": "Школа-интернат"'''
+        txt2 = u'''"geometry": {
+            "x": 91.395959,
+            "y": 56.169268 }
+        '''
+        txt3 = u'''"spatialReference": {
+            "latestWkid": 4326,
+            "wkid": 4326 }
+        '''
+        txt2 = u' '.join(txt2.split())
+        txt3 = u' '.join(txt3.split())
+        self.assertNotIn(err.encode(CP), rv.data)
+        self.assertIn(txt1.encode(CP), rv.data)
+        self.assertIn(txt2.encode(CP), data)
+        self.assertIn(txt3.encode(CP), data)
+#    def testLayer3DataByPolygon(self):
+
+
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testExtractMetaFromDB(self):
         """ Check admin page output for SQL error, layers meta from DB.
         """

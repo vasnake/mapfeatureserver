@@ -71,11 +71,13 @@ class SpatialFilterParams(object):
         self.agsGeom = agsGeom
         self.geomType = geomType
         self.spatRel = spatRel
+        if not self.spatRel:
+            self.spatRel = SpatialRelations.esriSpatialRelIntersects
 
     def isAllSet(self):
         """ Check filter parameters
         """
-        if not self.spatRel or not self.agsGeom or not self.geomType or not self.outSR:
+        if not self.spatRel or not self.agsGeom or not self.geomType:
             return False
         return True
 #class SpatialFilterParams(object)
@@ -215,7 +217,7 @@ def errorObject(message='Unable to complete operation.', details='Unsupported qu
     """
     err = simplejson.loads(tmpl)
     err['error']['message'] = message
-    err['error']['details'] = (details)
+    err['error']['details'] = (details,)
     return err
 #def errorObject(message='Unable to complete operation.', details='Unsupported query or query parameters.'):
 

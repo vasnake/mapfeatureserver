@@ -27,6 +27,7 @@ along with Mapfeatureserver.  If not, see <http://www.gnu.org/licenses/>.
 import os
 #import json  # http://pymotw.com/2/json/
 import postgis
+import simplejson
 
 
 class DBLayerInfo(object):
@@ -48,6 +49,7 @@ class LayerInfo(DBLayerInfo):
     def __init__(self, tabname='', geomfield='', oidfield=''):
         # json text for layer http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
         self.lyrmeta = ''
+        self.mDict = None
         super(LayerInfo, self).__init__(tabname, geomfield, oidfield)
 
     def setDBInfo(self, tabname, geomfield, oidfield):
@@ -65,6 +67,15 @@ class LayerInfo(DBLayerInfo):
         if not (self.tabname and self.geomfield and self.oidfield):
             return False
         return True
+
+    @property
+    def spatRefWKID(self):
+        """ Get spatial reference latest WKID from layer metadata.
+        Returns spatref wkid or raise Exception.
+        """
+        if not self.mDict:
+            self.mDict = simplejson.loads(self.lyrmeta)
+        return int(self.mDict['extent']['spatialReference']['latestWkid'])
 #class LayerInfo(DBLayerInfo):
 
 

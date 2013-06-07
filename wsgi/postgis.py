@@ -165,8 +165,8 @@ class DataSource(mfslib.IDataSource):
             #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
             geometryType, features = featuresFromCursor(cur)
 
-            queryRes = {"geometryType": geometryType, "spatialReference": spatialReference,
-                        "fields": fields, "features": features}
+            queryRes.update({"geometryType": geometryType, "spatialReference": spatialReference,
+                        "fields": fields, "features": features})
             if cur.rowcount >= 1000:
                 queryRes["exceededTransferLimit"] = True
 

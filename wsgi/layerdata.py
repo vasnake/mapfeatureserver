@@ -25,7 +25,7 @@ along with Mapfeatureserver.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import postgis, esri
-# import layermeta
+import layermeta
 
 CP = 'UTF-8'
 
@@ -62,10 +62,9 @@ def layerData(lyrconf, datasource, operation):
         spatFltParams = esri.SpatialFilterParams(operation.outSR, operation.geometry,
                                                  operation.geomType, operation.spatRelation)
         if not spatFltParams.isAllSet():
-            raise TypeError('For now, layer data may be filtered by geometry only')
+            raise TypeError("'geometry' parameter is invalid, must be (geometryType, geometry) at least.")
 
         if isinstance(datasource, postgis.DataSource):
-#            res = layerDataFilterByGeom(datasource, lyrconf, outSR, inpGeom, inpGeomType, spatRel)
             res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams)
         else:
             raise TypeError('Unknown datasource')
@@ -107,8 +106,11 @@ def layerDataFilterByGeom(datasource, lyrinfo, spatfilter):
     inpGeomSR, inpGeomWKT = esri.AGGeoJSON2WKT(spatfilter.agsGeom, spatfilter.geomType)
     spatfilter = esri.OGCSpatialFilterParams(spatfilter, inpGeomSR, inpGeomWKT)
 
+    assert isinstance(lyrinfo, layermeta.LayerInfo)
+    if not spatfilter.outSR:
+        spatfilter.outSR = lyrinfo.spatRefWKID
+
     if isinstance(datasource, postgis.DataSource):
-#        return datasource.filterLayerDataByGeom(lyrinfo, outSR, inpGeomWKT, inpGeomSR, spatRel)
         return datasource.filterLayerDataByGeom(lyrinfo, spatfilter)
     else:
         raise TypeError("Only PostGIS datasource availible, '%s' not supported yet" % type(datasource))

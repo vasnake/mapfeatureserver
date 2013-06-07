@@ -84,10 +84,15 @@ def mainPage():
         fldname = ini.get(lyrid, 'layer.geomfield')
         oidname = ini.get(lyrid, 'layer.oidfield')
 
+        # metadata extraction
+        lst.append((url_for('dbTableInfo',
+                            table=tabname, geomfield=fldname, oidfield=oidname),
+                    'Layer %s DB table info' % lyrid))
+
         # stored metadata
         lst.append((url_for('layerController', layerid=lyrid), 'Layer %s metadata' % lyrid))
 
-        # layer data query
+        # layer data query by box
         lst.append((url_for('layerOperations', layerid=lyrid, operation='query',
             geometry='{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}',
             outSR='102100',
@@ -99,10 +104,17 @@ def mainPage():
 #             f='pjson'
         ), 'Layer %s data query by box' % lyrid))
 
-        # metadata extraction
-        lst.append((url_for('dbTableInfo',
-                            table=tabname, geomfield=fldname, oidfield=oidname),
-                    'Layer %s DB table info' % lyrid))
+        # layer data query by polygon
+        lst.append((url_for('layerOperations', layerid=lyrid, operation='query',
+            geometryType='esriGeometryPolygon',
+            spatialRel='esriSpatialRelIntersects',
+            outSR='102100',
+            geometry='{"spatialReference":{"wkid":102100},"rings":[[[-3580921.90110393,-273950.309374072],[-3580921.90110393,15615167.6343221],[20037508.3427892,15615167.6343221],[20037508.3427892,-273950.309374072],[-3580921.90110393,-273950.309374072]],[[-20037508.3427892,-273950.309374072],[-20037508.3427892,15615167.6343221],[-18609053.1581958,15615167.6343221],[-18609053.1581958,-273950.309374072],[-20037508.3427892,-273950.309374072]]]}',
+#             returnGeometry='true',
+#             inSR='102100',
+#             outFields='*',
+#             f='pjson'
+        ), 'Layer %s data query by polygon' % lyrid))
 
     return render_template('servlets.html', lst=lst)
 #def mainPage():

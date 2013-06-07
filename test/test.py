@@ -18,16 +18,25 @@ if pth not in sys.path:
 
 CP = 'UTF-8'
 
+NODB = False
+DSN = "host=wags101 port=5432 dbname=postgisdb user=mfs password=12345678 connect_timeout=10 client_encoding=utf8"
+CONN = None
+import psycopg2
+import psycopg2.extensions  # always unicode output
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
+try:
+    CONN = psycopg2.connect(DSN)
+except:
+    NODB = True
+#    raise
+
+
 class LayerDataTests(unittest.TestCase):
     """ Tests for layerdata module """
 
     def setUp(self):
-        import psycopg2
-        import psycopg2.extensions  # always unicode output
-        psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
-        psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
-        self.dsn = "host=vags101 port=5432 dbname=postgisdb user=mfs password=12345678 connect_timeout=10 client_encoding=utf8"
-        self.conn = psycopg2.connect(self.dsn)
+        self.conn = CONN
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         self.maxDiff = None
@@ -35,9 +44,9 @@ class LayerDataTests(unittest.TestCase):
 
     def tearDown(self):
         self.cur.close()
-        self.conn.close()
 
 
+    @unittest.skipIf(NODB, "haven't DB connection")
     def testLayerExtent(self):
         """ postgis.layerRealExtent(ds, tabname, fname) returns "extent" JSON
         """
@@ -69,6 +78,7 @@ class LayerDataTests(unittest.TestCase):
 #    def testLayerExtent(self):
 
 
+    @unittest.skipIf(NODB, "haven't DB connection")
     def testLayerFields(self):
         """ postgis.tableFields4esri(ds, tabname, oidfname) returns "fields" JSON
         """
@@ -93,8 +103,43 @@ class LayerDataTests(unittest.TestCase):
 #    def testLayerFields(self):
 
 
+    @unittest.skipIf(NODB, "haven't DB connection")
+    def testLayerDataSpatialFilter(self):
+        """ function layerdata.layerDataFilterByGeom returns filtered layer data
+        as dictionary according to
+        http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
+        http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+
+        example:
+        http://vags101.algis.com/arcgis/rest/services/PATHING/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson
+        http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/3/query?returnGeometry=true&geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson
+
+        TODO: replace QueryByBox tests; add query by polygon
+        """
+        import layerdata, esri, mapfs_controller, postgis, mfslib
+
+        ds = postgis.DataSource(self.conn)
+        lyrinf = mapfs_controller.getLayerConfig('0')
+        spfilter = esri.SpatialFilterParams(102100,
+                                            '{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}',
+                                             'esriGeometryEnvelope',
+                                             'esriSpatialRelIntersects')
+        res = layerdata.layerDataFilterByGeom(ds, lyrinf, spfilter)
+        txt = simplejson.dumps(res, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+#        with open('layerdata.test1.json', 'wb') as fh:
+#            fh.write(txt.encode(CP))
+        res = simplejson.loads(txt, use_decimal=True)
+        with open('layerdata.test1.json') as fh:
+            txt = fh.read().strip().decode(CP)
+            dct = simplejson.loads(txt, use_decimal=True)
+        self.assertDictEqual(dct, res)
+#    def testLayerDataSpatialFilter(self):
+
+
+    @unittest.skipIf(NODB, "haven't DB connection")
     def testLayerQueryByBox(self):
-        """ function layerdata.layerDataInBox return layer data as dictionary
+        """ Obsolete.
+        function layerdata.layerDataInBox return layer data as dictionary
         prepared for JSONify
         according to http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
         http://resources.arcgis.com/en/help/rest/apiref/fsquery.html

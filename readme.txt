@@ -1,4 +1,5 @@
 Статья на ГИС-Лаб
+http://gis-lab.info/qa/mapfeatureserver.html
 http://wiki.gis-lab.info/w/Mapfeatureserver_как_замена_ArcGIS_Server
 http://gis-lab.info/forum/viewtopic.php?f=3&t=13731
 
