@@ -20,8 +20,9 @@ if pth not in sys.path:
 import mapfs_controller
 
 FASTCHECK = False
-DEVDSN = False
+DEVDSN = True
 CP = 'UTF-8'
+
 
 class MFSFlaskAppTestCase(unittest.TestCase):
     """ Tests for Flask app """
@@ -175,7 +176,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
 #    def testLayer2Data(self):
 
 
-    @unittest.skipIf(DEVDSN, "need developer DB DSN")
+    @unittest.skipIf(DEVDSN, "need Gis-Lab DB DSN")
     def testLayer3DataByPolygon(self):
         """ Check layer 3 query by polygon result page (/3/query?...) output.
         """

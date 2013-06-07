@@ -19,7 +19,7 @@ if pth not in sys.path:
 CP = 'UTF-8'
 
 NODB = False
-DSN = "host=wags101 port=5432 dbname=postgisdb user=mfs password=12345678 connect_timeout=10 client_encoding=utf8"
+DSN = "host=vags101 port=5432 dbname=postgisdb user=mfs password=12345678 connect_timeout=10 client_encoding=utf8"
 CONN = None
 import psycopg2
 import psycopg2.extensions  # always unicode output
