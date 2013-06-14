@@ -62,10 +62,16 @@ class SpatialRelations:
 
 class SpatialFilterParams(object):
     """ Parameters for spatial filter.
-    Geometry, geometry SR, result SR, spatial relation.
+    Result SR, geometry, geometry type, spatial relation.
     """
     def __init__(self, outSR, agsGeom, geomType, spatRel):
-        """ ArcGIS specified spatial query parameters.
+        """ ArcGIS REST API specified spatial query parameters.
+
+        Example: spfilter = esri.SpatialFilterParams(
+                            102100,
+                            '{"xmin":4103424.83887823,"ymin":7491699.58654681,"xmax":4494782.42369833,"ymax":7726819.88555201,"spatialReference":{"wkid":102100}}',
+                            'esriGeometryEnvelope',
+                            'esriSpatialRelIntersects')
         """
         self.outSR = outSR
         self.agsGeom = agsGeom

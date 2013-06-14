@@ -73,7 +73,7 @@ def mainPage():
     """ List of all MFS servlets, for demo purposes only
     """
     lst = []
-    for x in ('mainPage', 'helpPage', 'favicon', 'clientaccesspolicy'):
+    for x in ('mainPage', 'helpPage', 'favicon', 'clientaccesspolicy', 'servicesList', 'layersList'):
         # static pages
         lst.append((url_for(x), ''))
 
@@ -127,6 +127,50 @@ def helpPage():
     return render_template("help.html")
 
 
+@APP.route('/services')
+def servicesList():
+    """ Returns JSON for catalog request
+    http://vags101.algis.com/arcgis/rest/services?f=pjson
+
+    Example output:
+    { "currentVersion": 10.11,
+     "folders": [],
+     "services": [
+      {
+       "name": "Mapfeatureserver",
+       "type": "FeatureServer"
+      } ] }
+    """
+    resp = {"currentVersion": '10.11', "folders": [],
+            "services": [{"name": "mfs", "type": "FeatureServer"}]}
+    return makeResponce(resp)
+#def servicesList():
+
+
+@APP.route('/services/mfs/FeatureServer')
+def layersList():
+    """ Layers index page processor.
+    Returns JSON text with FeatureServer description, include layers list.
+
+    Spec: http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Feature_Service/02r3000000z2000000/
+    """
+    ini = mfslib.getIniData(APP)
+    lyrs = mfslib.getLyrsList(ini)
+    layers = []
+    for lid in lyrs:
+        name = ini.get(lid, 'layer.name')
+        layers.append({'id': int(lid), 'name': name})
+
+    stordir = APP.config['DATA_FILES_ROOTDIR']
+    text = layermeta.layerMeta(0, stordir, fname='mfs.index.js')
+    resp = simplejson.loads(text)
+
+    resp['layers'] = layers
+    return makeResponce(resp)
+#def featureServerIndex():
+
+
+@APP.route('/services/mfs/FeatureServer/<int:layerid>')
 @APP.route('/<int:layerid>')
 def layerController(layerid=0):
     """ Esri API, process requests to layer by Layer ID
@@ -155,6 +199,7 @@ def layerController(layerid=0):
 #def layerController(layerid=0):
 
 
+@APP.route('/services/mfs/FeatureServer/<int:layerid>/<operation>')
 @APP.route('/<int:layerid>/<operation>')
 def layerOperations(layerid=0, operation=''):
     """ Esri API, process all operations for layer by Layer ID and operation name

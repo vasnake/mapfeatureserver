@@ -79,15 +79,20 @@ class LayerInfo(DBLayerInfo):
 #class LayerInfo(DBLayerInfo):
 
 
-def layerMeta(layerid, filestor='c:/d/code/git/mapfeatureserver'):
-    """ return JSON text for layer
+def layerMeta(layerid, filestor='c:/d/code/git/mapfeatureserver', fname=''):
+    """ Returns JSON text for layer
     according http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
     Return '' if file with layer metadata not exists.
+
+    If fname is set, return content of pointed file from 'config' dir.
 
     example http://vags101.algis.com/arcgis/rest/services/PATHING/FeatureServer/0?f=json
     or http://vags101.algis.com/arcgis/rest/services/PATHING/FeatureServer/0?f=pjson
     """
-    fn = os.path.join(filestor, 'config', 'layer.%s.config.json' % layerid)
+    if not fname:
+        fname = 'layer.%s.config.json' % layerid
+
+    fn = os.path.join(filestor, 'config', fname)
     if not os.path.exists(fn):
         return ''
 

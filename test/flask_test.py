@@ -53,6 +53,39 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         rv = self.app.get('/0')
         self.assertIn(txt.encode(CP), rv.data)
 
+    def testServicesList(self):
+        """ Check services page (/services) output.
+        """
+        err = u'''"error": {'''
+        txt = u'''"services": [
+            {
+              "name": "mfs",
+              "type": "FeatureServer"
+            } ]
+        '''
+        txt = u' '.join(txt.split())
+        rv = self.app.get('''/services''')
+        data = ' '.join(rv.data.split())
+
+        self.assertNotIn(err.encode(CP), data)
+        self.assertIn(txt.encode(CP), data)
+#    def testServicesList(self):
+
+    def testLayersList(self):
+        """ Check FeatureServer page (/services/mfs/FeatureServer) output.
+        """
+        err = u'''"error": {'''
+        txt = u'''"layers": [
+            { "id":
+        '''
+        txt = u' '.join(txt.split())
+        rv = self.app.get('''/services/mfs/FeatureServer''')
+        data = ' '.join(rv.data.split())
+
+        self.assertNotIn(err.encode(CP), data)
+        self.assertIn(txt.encode(CP), data)
+#    def testLayersList(self):
+
     @unittest.skipIf(not DEVDSN, "need developer DB DSN")
     def testLayer0Data(self):
         """ Check layer 0 query result page (/0/query?...) output.
