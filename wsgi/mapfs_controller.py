@@ -199,8 +199,8 @@ def layerController(layerid=0):
 #def layerController(layerid=0):
 
 
-@APP.route('/services/mfs/FeatureServer/<int:layerid>/<operation>')
-@APP.route('/<int:layerid>/<operation>')
+@APP.route('/services/mfs/FeatureServer/<int:layerid>/<operation>', methods=['GET', 'POST'])
+@APP.route('/<int:layerid>/<operation>', methods=['GET', 'POST'])
 def layerOperations(layerid=0, operation=''):
     """ Esri API, process all operations for layer by Layer ID and operation name
     http://resources.arcgis.com/en/help/rest/apiref/fslayer.html

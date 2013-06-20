@@ -137,6 +137,7 @@ class AGLayerOpQuery(AGLayerOperation):
     TODO: validate query parameters (SQL injections may be disaster).
     """
     def __init__(self, args):
+#        print "query parameters: '%s'" % simplejson.dumps(args)
         self.rawArgs = args
         super(AGLayerOpQuery, self).__init__()
 
