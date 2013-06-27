@@ -55,6 +55,7 @@ def layerData(lyrconf, datasource, operation):
     #   datasource = postgis.DataSource('')
     #   operation = esri.AGLayerOpQuery('')
     #assert isinstance(operation, esri.AGLayerOpQuery)
+    assert isinstance(lyrconf, layermeta.LayerInfo)
 
     if isinstance(operation, esri.AGLayerOpQuery):
         #spatialReference - из параметра «outSR=102100» запроса

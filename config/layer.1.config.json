@@ -141,292 +141,300 @@
  "globalIdField": "",
  "displayField": "name",
  "typeIdField": "method",
- "fields": [
-  {
-   "name": "gid",
-   "type": "esriFieldTypeOID",
-   "alias": "OBJECTID",
-   "domain": null,
-   "editable": false,
-   "nullable": false
-  },
-  {
-   "name": "objectid",
-   "type": "esriFieldTypeInteger",
-   "alias": "formerOID",
-   "domain": null,
-   "editable": false,
-   "nullable": true
-  },
-  {
-   "name": "recid",
-   "type": "esriFieldTypeInteger",
-   "alias": "RECID",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "areaname",
-   "type": "esriFieldTypeString",
-   "alias": "AREANAME",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "name",
-   "type": "esriFieldTypeString",
-   "alias": "NAME",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "ship",
-   "type": "esriFieldTypeString",
-   "alias": "SHIP",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "startdate",
-   "type": "esriFieldTypeString",
-   "alias": "STARTDATE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 6
-  },
-  {
-   "name": "enddate",
-   "type": "esriFieldTypeString",
-   "alias": "ENDDATE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 6
-  },
-  {
-   "name": "method",
-   "type": "esriFieldTypeString",
-   "alias": "METHOD",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 50
-  },
-  {
-   "name": "num",
-   "type": "esriFieldTypeString",
-   "alias": "NUM",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "purpwork",
-   "type": "esriFieldTypeString",
-   "alias": "PURPWORK",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "scale",
-   "type": "esriFieldTypeString",
-   "alias": "SCALE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "surveysource",
-   "type": "esriFieldTypeString",
-   "alias": "SURVEYSOURCE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "watchsystemcode",
-   "type": "esriFieldTypeString",
-   "alias": "WATCHSYSTEMCODE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "format",
-   "type": "esriFieldTypeString",
-   "alias": "FORMAT",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "shotspacing",
-   "type": "esriFieldTypeDouble",
-   "alias": "SHOTSPACING",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "receiverspacing",
-   "type": "esriFieldTypeDouble",
-   "alias": "RECEIVERSPACING",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "fold",
-   "type": "esriFieldTypeInteger",
-   "alias": "FOLD",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "shotpointquant",
-   "type": "esriFieldTypeInteger",
-   "alias": "SHOTPOINTQUANT",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "startnumshotpoint",
-   "type": "esriFieldTypeInteger",
-   "alias": "STARTNUMSHOTPOINT",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "endnumshotpoint",
-   "type": "esriFieldTypeInteger",
-   "alias": "ENDNUMSHOTPOINT",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "quantcmp",
-   "type": "esriFieldTypeInteger",
-   "alias": "QUANTCMP",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "ratio",
-   "type": "esriFieldTypeString",
-   "alias": "RATIO",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "recorddurat",
-   "type": "esriFieldTypeDouble",
-   "alias": "RECORDDURAT",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "discretintv",
-   "type": "esriFieldTypeDouble",
-   "alias": "DISCRETINTV",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "archive",
-   "type": "esriFieldTypeString",
-   "alias": "ARCHIVE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "orgfieldwork",
-   "type": "esriFieldTypeString",
-   "alias": "ORGFIELDWORK",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "orgdataprocess",
-   "type": "esriFieldTypeString",
-   "alias": "ORGDATAPROCESS",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "proflength",
-   "type": "esriFieldTypeDouble",
-   "alias": "PROFLENGTH",
-   "domain": null,
-   "editable": true,
-   "nullable": true
-  },
-  {
-   "name": "location",
-   "type": "esriFieldTypeString",
-   "alias": "LOCATION",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "doclink",
-   "type": "esriFieldTypeString",
-   "alias": "DOCLINK",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 2000
-  },
-  {
-   "name": "note",
-   "type": "esriFieldTypeString",
-   "alias": "NOTE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  },
-  {
-   "name": "source",
-   "type": "esriFieldTypeString",
-   "alias": "SOURCE",
-   "domain": null,
-   "editable": true,
-   "nullable": true,
-   "length": 255
-  }
- ],
+  "fields": [
+    {
+      "alias": "OBJECTID",
+      "domain": null,
+      "editable": false,
+      "name": "gid",
+      "nullable": false,
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "alias": "Старый OID",
+      "domain": null,
+      "editable": false,
+      "name": "objectid",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "RECID",
+      "domain": null,
+      "editable": false,
+      "name": "recid",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "AREANAME",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "areaname",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NAME",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "name",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHIP",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "ship",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "STARTDATE",
+      "domain": null,
+      "editable": false,
+      "length": 6,
+      "name": "startdate",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ENDDATE",
+      "domain": null,
+      "editable": false,
+      "length": 6,
+      "name": "enddate",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "METHOD",
+      "domain": null,
+      "editable": false,
+      "length": 50,
+      "name": "method",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NUM",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "num",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PURPWORK",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "purpwork",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SCALE",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "scale",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SURVEYSOUR",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "surveysour",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "WATCHSYSTE",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "watchsyste",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "FORMAT",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "format",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHOTSPACIN",
+      "domain": null,
+      "editable": false,
+      "name": "shotspacin",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "RECEIVERSP",
+      "domain": null,
+      "editable": false,
+      "name": "receiversp",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "FOLD",
+      "domain": null,
+      "editable": false,
+      "name": "fold",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "SHOTPOINTQ",
+      "domain": null,
+      "editable": false,
+      "name": "shotpointq",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "STARTNUMSH",
+      "domain": null,
+      "editable": false,
+      "name": "startnumsh",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "ENDNUMSHOT",
+      "domain": null,
+      "editable": false,
+      "name": "endnumshot",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "QUANTCMP",
+      "domain": null,
+      "editable": false,
+      "name": "quantcmp",
+      "nullable": true,
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "alias": "RATIO",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "ratio",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "RECORDDURA",
+      "domain": null,
+      "editable": false,
+      "name": "recorddura",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "DISCRETINT",
+      "domain": null,
+      "editable": false,
+      "name": "discretint",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "ARCHIVE",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "archive",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ORGFIELDWO",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "orgfieldwo",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "ORGDATAPRO",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "orgdatapro",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "PROFLENGTH",
+      "domain": null,
+      "editable": false,
+      "name": "proflength",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "alias": "LOCATION",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "location",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "DOCLINK",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "doclink",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "NOTE",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "note",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SOURCE",
+      "domain": null,
+      "editable": false,
+      "length": 254,
+      "name": "source",
+      "nullable": true,
+      "type": "esriFieldTypeString"
+    },
+    {
+      "alias": "SHAPE_LENG",
+      "domain": null,
+      "editable": false,
+      "name": "shape_leng",
+      "nullable": true,
+      "type": "esriFieldTypeDouble"
+    }
+  ],
  "types": [
   {
    "id": "нет данных",

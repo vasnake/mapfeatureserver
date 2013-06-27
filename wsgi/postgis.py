@@ -135,6 +135,7 @@ class DataSource(mfslib.IDataSource):
                 spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
         """
         assert isinstance(spatfilter, esri.OGCSpatialFilterParams)
+        assert isinstance(lyrinfo, layermeta.LayerInfo)
 
         if spatfilter.spatRel == esri.SpatialRelations.esriSpatialRelIntersects:
             pass
@@ -306,6 +307,7 @@ def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid):
         wktGeom: OGC WKT geometry for spatial filter;
     """
     assert isinstance(lyrinfo, layermeta.DBLayerInfo)
+#    assert isinstance(lyrinfo, layermeta.LayerInfo)
 
     sql = """select *, st_asgeojson(1, st_transform({gcol}::geometry, {outsrid})) as shape
         from {table} where not st_disjoint(
@@ -362,7 +364,7 @@ def sqlSelectAllByBox(lyrinfo, outSrid, box):
 #def sqlSelectAllByBox(lyrinfo, outSrid, box):
 
 
-def fieldFromDescr(col, oidfield):
+def fieldFromDescr(col, lyrinfo):
     """ Return field description as dictionary in form that Esri require
     {name, alias, type, length if type is string or date}.
     Return None if field contains geometry.
@@ -370,10 +372,15 @@ def fieldFromDescr(col, oidfield):
 
     Args:
         col: Pg cursor.description[n]
-        oidfield: OBJECTID field name
+        lyrinfo: layermeta.LayerInfo object with fields metadata
 
-    TODO: rewrite function, field parameters must be parsed from layer metadata from layer config.
-    Field alias and type actually.
+    Result example:
+        {
+          "alias": "DESCR",
+          "length": 100,
+          "name": "descr",
+          "type": "esriFieldTypeString"
+        }
     """
 #    debug info
 #    print col  # Column(name='geometry', type_code=1441608681, display_size=None, internal_size=1107452, precision=None, scale=None, null_ok=None)
@@ -382,23 +389,21 @@ def fieldFromDescr(col, oidfield):
     # PG field type 'text':
     # Column(name='testtext', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
     # Column(name='shape', type_code=25, display_size=None, internal_size=-1, precision=None, scale=None, null_ok=None)
+    assert isinstance(lyrinfo, layermeta.LayerInfo)
 
-    if col.type_code not in REGULAR_TYPES or unicode(col.name) == u'shape':
+    # if field is geometry or not in known list
+    fldname = unicode(col.name).lower()
+    if fldname == u'shape' or fldname == lyrinfo.geomfield:
         return None
 
-    ftype = TYPECODE2ESRI[col.type_code]
-    falias = col.name
-    if falias.lower() == oidfield.lower():
-        falias = u'OBJECTID'
-        ftype = u'esriFieldTypeOID'
+    # TODO: not really need this check in case sql query builded from list of fields instead of 'select * from ...'
+    if not fldname in lyrinfo.fields:
+        return None
 
-    fld = {'name': col.name, 'alias': falias.upper(), 'type': ftype}
-    if ftype in esri.ESRI_FIELDS_WITH_LENGTH:
-        fld['length'] = col.internal_size
-        if col.internal_size == -1:  # 'text' field type, actually it's a blob
-            fld['length'] = PGTEXT_LENGTH
-        elif ftype == u'esriFieldTypeDate':  # internal size = 8 bytes, string repr. = 19 symbols
-            fld['length'] = PGTIMESTAMP_LENGTH
+    fldmeta = lyrinfo.fields[fldname]
+    fld = {'name': fldname, 'alias': fldmeta['alias'], 'type': fldmeta['type']}
+    if 'length' in fldmeta:
+        fld['length'] = fldmeta['length']
 
     return fld
 #def fieldFromDescr(col, oidfield):
@@ -410,13 +415,14 @@ def attrFieldsFromDescr(cur, lyrinfo):
 
     Args:
         cur: Pg connection.cursor with cur.description tuple
-        lyrinfo: DBLayerInfo object with
+        lyrinfo: layermeta.LayerInfo object with
             LayerInfo.oidfield: name for field with OBJECTID
     """
+    assert isinstance(lyrinfo, layermeta.LayerInfo)
     fields = []
     for col in cur.description:
         #~ print "name: '%s', alias: '%s', type: '%s', length '%s'" % (col.name, col.name, col.type_code, col.internal_size)
-        fld = fieldFromDescr(col, lyrinfo.oidfield)
+        fld = fieldFromDescr(col, lyrinfo)
         if fld:
             fields.append(fld)
     return fields

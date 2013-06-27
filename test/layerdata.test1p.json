@@ -184,41 +184,41 @@
       "type": "esriFieldTypeOID"
     },
     {
-      "alias": "PTCHLENGHT",
+      "alias": "Длина",
       "name": "ptchlenght",
       "type": "esriFieldTypeSmallInteger"
     },
     {
-      "alias": "PTHCDEPTHT",
+      "alias": "Глубина",
       "name": "pthcdeptht",
       "type": "esriFieldTypeSmallInteger"
     },
     {
-      "alias": "DESCR",
+      "alias": "Описание",
       "length": 100,
       "name": "descr",
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "REGDATEREC",
+      "alias": "Дата регистрации",
       "length": 50,
       "name": "regdaterec",
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "REGDATEREP",
+      "alias": "Дата ремонта",
       "length": 50,
       "name": "regdaterep",
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "ROADCARPET",
+      "alias": "Покрытие",
       "length": 50,
       "name": "roadcarpet",
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "TESTTIMESTAMP",
+      "alias": "ПроверкаТаймштампа",
       "length": 36,
       "name": "testtimestamp",
       "type": "esriFieldTypeDate"

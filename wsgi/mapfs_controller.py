@@ -239,7 +239,6 @@ def layerOperations(layerid=0, operation=''):
         resp = layerdata.layerData(lyrconf, ds, op)
     except Exception, e:
         traceback.print_exc(file=sys.stderr)
-#        trb = traceback.format_exc()
         resp = esri.errorObject(details=u"Data processing error: %s" % e)
     return makeResponce(resp)
 #def layerOperations(layerid=0, operation=''):

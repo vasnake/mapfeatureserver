@@ -109,7 +109,7 @@
       "type": "esriFieldTypeOID"
     },
     {
-      "alias": "PTCHLENGHT",
+      "alias": "Длина",
       "domain": null,
       "editable": false,
       "name": "ptchlenght",
@@ -117,7 +117,7 @@
       "type": "esriFieldTypeSmallInteger"
     },
     {
-      "alias": "PTHCDEPTHT",
+      "alias": "Глубина",
       "domain": null,
       "editable": false,
       "name": "pthcdeptht",
@@ -125,7 +125,7 @@
       "type": "esriFieldTypeSmallInteger"
     },
     {
-      "alias": "DESCR",
+      "alias": "Описание",
       "domain": null,
       "editable": false,
       "length": 100,
@@ -134,7 +134,7 @@
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "REGDATEREC",
+      "alias": "Дата регистрации",
       "domain": null,
       "editable": false,
       "length": 50,
@@ -143,7 +143,7 @@
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "REGDATEREP",
+      "alias": "Дата ремонта",
       "domain": null,
       "editable": false,
       "length": 50,
@@ -152,7 +152,7 @@
       "type": "esriFieldTypeString"
     },
     {
-      "alias": "ROADCARPET",
+      "alias": "Покрытие",
       "domain": null,
       "editable": false,
       "length": 50,

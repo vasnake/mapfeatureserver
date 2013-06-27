@@ -840,7 +840,7 @@
       "type": "esriFieldTypeOID"
     },
     {
-      "alias": "OBJECTID",
+      "alias": "Старый OID",
       "name": "objectid",
       "type": "esriFieldTypeInteger"
     },

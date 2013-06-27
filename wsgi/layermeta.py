@@ -32,12 +32,12 @@ import simplejson
 
 class DBLayerInfo(object):
     """ Information about layer DB structure:
-    table name, geometry field name, OBJECTID field name
+    table name, geometry field name, OBJECTID field name casted to unicode(n).lower()
     """
     def __init__(self, tabname, geomfield, oidfield):
-        self.tabname = tabname
-        self.geomfield = geomfield
-        self.oidfield = oidfield
+        self.tabname = unicode(tabname).lower()
+        self.geomfield = unicode(geomfield).lower()
+        self.oidfield = unicode(oidfield).lower()
 #class DBLayerInfo(object):
 
 
@@ -49,7 +49,8 @@ class LayerInfo(DBLayerInfo):
     def __init__(self, tabname='', geomfield='', oidfield=''):
         # json text for layer http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
         self.lyrmeta = ''
-        self.mDict = None
+        self.mDict = None  # layer metadata parsed from JSON
+        self.lyrFields = None  # layer fields dictionary
         super(LayerInfo, self).__init__(tabname, geomfield, oidfield)
 
     def setDBInfo(self, tabname, geomfield, oidfield):
@@ -68,14 +69,35 @@ class LayerInfo(DBLayerInfo):
             return False
         return True
 
+    def parseMeta(self):
+        """ Load layer metadata into mDict object """
+        if not self.mDict:
+            self.mDict = simplejson.loads(self.lyrmeta)
+
     @property
     def spatRefWKID(self):
         """ Get spatial reference latest WKID from layer metadata.
         Returns spatref wkid or raise Exception.
         """
         if not self.mDict:
-            self.mDict = simplejson.loads(self.lyrmeta)
+            self.parseMeta()
         return int(self.mDict['extent']['spatialReference']['latestWkid'])
+
+    @property
+    def fields(self):
+        """ Returns field objects dictionary where key is field name unicode(n).lower()
+
+        Usage: 'if fldname in lyrinfo.fields:'
+        """
+        if self.lyrFields:
+            return self.lyrFields
+
+        self.parseMeta()
+        res = {}
+        for fld in self.mDict['fields']:
+            res[unicode(fld['name']).lower()] = fld
+        self.lyrFields = res
+        return self.lyrFields
 #class LayerInfo(DBLayerInfo):
 
 
