@@ -153,6 +153,7 @@ class DataSource(mfslib.IDataSource):
         spatialReference = {"wkid": int(spatfilter.outSR), "latestWkid": outSrid}
 
         # sql query
+        # TODO: sql builder must use 'outFields' query parameter
         sql = sqlSelectAllByWKTGeom(lyrinfo, outSrid, spatfilter.wktGeom, inSrid)
 #        print sql
         cur = self.cursor
@@ -164,7 +165,8 @@ class DataSource(mfslib.IDataSource):
 
             #"geometryType": "esriGeometryPoint",   - из первой же записи выборки, поле «shape»
             #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
-            geometryType, features = featuresFromCursor(cur)
+#            geometryType, features = featuresFromCursor(cur)
+            geometryType, features = featuresFromCursor(cur, lyrinfo)
 
             queryRes.update({"geometryType": geometryType, "spatialReference": spatialReference,
                         "fields": fields, "features": features})
@@ -396,12 +398,13 @@ def fieldFromDescr(col, lyrinfo):
     if fldname == u'shape' or fldname == lyrinfo.geomfield:
         return None
 
-    # TODO: not really need this check in case sql query builded from list of fields instead of 'select * from ...'
+    # TODO: this check is not really needed in case sql query builded from list of fields instead of 'select * from ...'
     if not fldname in lyrinfo.fields:
+        print "fieldFromDescr: field '{fldname}' not in layer metadata".format(**locals())
         return None
 
     fldmeta = lyrinfo.fields[fldname]
-    fld = {'name': fldname, 'alias': fldmeta['alias'], 'type': fldmeta['type']}
+    fld = {'name': fldmeta['name'], 'alias': fldmeta['alias'], 'type': fldmeta['type']}
     if 'length' in fldmeta:
         fld['length'] = fldmeta['length']
 
@@ -429,7 +432,7 @@ def attrFieldsFromDescr(cur, lyrinfo):
 #def attrFieldsFromDescr(cur):
 
 
-def featuresFromCursor(cur):
+def featuresFromCursor(cur, lyrinfo):
     """ Parse cursor records and return (geometryType, features) tuple
     where geometryType is string and features is array according to
     ArcGIS spec http://resources.arcgis.com/en/help/rest/apiref/fsquery.html#response
@@ -439,10 +442,11 @@ def featuresFromCursor(cur):
 
     Args:
         cur: Pg connection.cursor with dataset
-
-    TODO: rewrite function, fields must be parsed according layer metadata from layer config.
-    No extra attributes like shape_leng
+        lyrinfo: layermeta.LayerInfo object with layer metadata (layer fields specs)
     """
+    assert isinstance(lyrinfo, layermeta.LayerInfo)
+    columns = lambda a: (zip(range(len(a)), a))
+    ufields = {}
     #"geometryType": "esriGeometryPoint",   - из первой же записи выборки, поле «shape»
     geometryType = ''
     #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
@@ -453,19 +457,29 @@ def featuresFromCursor(cur):
         attributes = {}
         geometry = {}
 
-        columns = lambda a: (zip(range(len(a)), a))
         for colnum, col in columns(cur.description):
 #            print col  # Column(name='testtimestamp', type_code=1114, display_size=None, internal_size=8, precision=None, scale=None, null_ok=None)
-            if unicode(col.name) == u'shape':  # geometry
+            fldname = unicode(col.name).lower()
+            if fldname == u'shape':  # geometry
                 shape = simplejson.loads(rec[colnum])
                 geometryType, geometry = esri.geoJson2agJson(shape)
                 continue
-            if col.type_code not in REGULAR_TYPES:
+
+            # TODO: this check not needed in case sql query builded properly
+            if fldname == lyrinfo.geomfield:
                 continue
-            attributes[col.name] = rec[colnum]
+
+            if fldname not in lyrinfo.fields:  # unknown field
+                ufields[fldname] = ''
+                continue
+
+            attributes[lyrinfo.fields[fldname]['name']] = rec[colnum]
 
         fitem["attributes"] = attributes
         fitem["geometry"] = geometry
         features.append(fitem)
+
+    if len(ufields.keys()):
+        print "featuresFromCursor: fields '{lst}' not in layer metadata".format(lst=ufields.keys())
     return (geometryType, features)
 #def featuresFromCursor(cur):
