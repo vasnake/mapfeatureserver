@@ -198,5 +198,31 @@ class LayerDataTests(unittest.TestCase):
 #    def testLayerDataSpatialFilter(self):
 
 
+
+    @unittest.skipIf(NODB, "haven't DB connection")
+    def testLayerDataAttribsFilter(self):
+        """ function layerdata.layerDataFilterByGeom with 'where' clause
+        returns filtered layer data as dictionary according to
+        http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
+        http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+        """
+        import layerdata, esri, mapfs_controller, postgis, mfslib
+
+        ds = postgis.DataSource(self.conn)
+        lyrinf = mapfs_controller.getLayerConfig('0')
+        spfilter = esri.SpatialFilterParams(102100,
+                                            '{"xmin":57850.1,"ymin":4009328.1,"xmax":11328948.1,"ymax":9410063.1,"spatialReference":{"wkid":102100}}',
+                                             'esriGeometryEnvelope',
+                                             'esriSpatialRelIntersects')
+        attrfilter = esri.AttribsFilterParams("descr='werwre'")
+        res = layerdata.layerDataFilterByGeom(ds, lyrinf, spfilter, attrfilter)
+        txt = simplejson.dumps(res, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+#        with open('tmp.json', 'wb') as fh:
+#            fh.write(txt.encode(CP))
+        self.assertIn(u'"descr": "werwre"', txt)
+        self.assertNotIn(u'"testtimestamp": null', txt)
+#    def testLayerDataAttribsFilter(self):
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=3, exit=False)

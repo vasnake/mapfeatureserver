@@ -109,7 +109,7 @@ class DataSource(mfslib.IDataSource):
     def __del__(self):
         self.cursor.close()
 
-    def filterLayerDataByGeom(self, lyrinfo, spatfilter):
+    def filterLayerDataByGeom(self, lyrinfo, spatfilter, attrfilter):
         """ Answer for client query.
         Returns layer data from DB. Output formed as dictionary according to Esri spec.
         Features will be spatially filtered by spatfilter.geometry.
@@ -133,9 +133,11 @@ class DataSource(mfslib.IDataSource):
                     constructed from that geometry.
                 inpGeomSR: integer, input geometry spatial reference WKID.
                 spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
+            attrfilter: esri.AttribsFilterParams with 'where' clause
         """
         assert isinstance(spatfilter, esri.OGCSpatialFilterParams)
         assert isinstance(lyrinfo, layermeta.LayerInfo)
+        assert isinstance(attrfilter, esri.AttribsFilterParams)
 
         if spatfilter.spatRel == esri.SpatialRelations.esriSpatialRelIntersects:
             pass
@@ -154,7 +156,7 @@ class DataSource(mfslib.IDataSource):
 
         # sql query
         # TODO: sql builder must use 'outFields' query parameter
-        sql = sqlSelectAllByWKTGeom(lyrinfo, outSrid, spatfilter.wktGeom, inSrid)
+        sql = sqlSelectAllByWKTGeom(lyrinfo, outSrid, spatfilter.wktGeom, inSrid, attrfilter)
 #        print sql
         cur = self.cursor
         cur.execute(sql)
@@ -296,7 +298,7 @@ def tableFields4esri(ds, tabname, oidfname):
 #def tableFields4esri(cur, tabname):
 
 
-def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid):
+def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid, attrfilter):
     """ Return SQL text for 'select *, shape ... limit 1000' query with 'intersect' spatial filter.
     Field 'shape' is st_asgeojson text for geometry field.
 
@@ -307,19 +309,22 @@ def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid):
             LayerInfo.oidfield: name for field with OBJECTID;
         outSrid: integer, PostGIS srid for output projection;
         wktGeom: OGC WKT geometry for spatial filter;
+        attrfilter: esri.AttribsFilterParams with 'where' clause
     """
     assert isinstance(lyrinfo, layermeta.DBLayerInfo)
 #    assert isinstance(lyrinfo, layermeta.LayerInfo)
+    assert isinstance(attrfilter, esri.AttribsFilterParams)
 
     sql = """select *, st_asgeojson(1, st_transform({gcol}::geometry, {outsrid})) as shape
-        from {table} where not st_disjoint(
+        from {table} where {attrflt}
+          and not st_disjoint(
             {gcol}::geometry,
             ST_transform(
                 ST_GeomFromText('{wkt}', {insrid})
                 , st_srid({gcol}::geometry) )
         ) order by {pk} limit 1000;
         """.format(gcol=lyrinfo.geomfield, outsrid=outSrid, table=lyrinfo.tabname,
-            wkt=wktGeom, insrid=inSrid, pk=lyrinfo.oidfield)
+            wkt=wktGeom, insrid=inSrid, pk=lyrinfo.oidfield, attrflt=attrfilter.where)
 
     return sql
 #def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, inpGeomWKT, inSrid)

@@ -64,9 +64,12 @@ def layerData(lyrconf, datasource, operation):
                                                  operation.geomType, operation.spatRelation)
         if not spatFltParams.isAllSet():
             raise TypeError("'geometry' parameter is invalid, must be (geometryType, geometry) at least.")
+        # TODO: extend attribs filter with objectIds, outFields, returnGeometry, returnIdsOnly, returnCountOnly, orderByFields etc.
+        # http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000r1000000
+        attrFltParams = esri.AttribsFilterParams(operation.where)
 
         if isinstance(datasource, postgis.DataSource):
-            res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams)
+            res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams, attrFltParams)
         else:
             raise TypeError('Unknown datasource')
 
@@ -78,7 +81,7 @@ def layerData(lyrconf, datasource, operation):
 #def layerData(lyrconf, datasource, operation):
 
 
-def layerDataFilterByGeom(datasource, lyrinfo, spatfilter):
+def layerDataFilterByGeom(datasource, lyrinfo, spatfilter, attrfilter=None):
     """ Return layer data from DB. Output formed as dictionary according to Esri spec.
     Features will be spatially filtered by inpGeom.
 
@@ -102,6 +105,7 @@ def layerDataFilterByGeom(datasource, lyrinfo, spatfilter):
             'geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
             geomType: string, input geometry type, one of (esriGeometryEnvelope, esriGeometryPolygon)
             spatRel: string, spatial relation for filter, one of (esriSpatialRelIntersects)
+        attrfilter: esri.AttribsFilterParams with 'where' clause
     """
     assert isinstance(spatfilter, esri.SpatialFilterParams)
     inpGeomSR, inpGeomWKT = esri.AGGeoJSON2WKT(spatfilter.agsGeom, spatfilter.geomType)
@@ -111,74 +115,14 @@ def layerDataFilterByGeom(datasource, lyrinfo, spatfilter):
     if not spatfilter.outSR:
         spatfilter.outSR = lyrinfo.spatRefWKID
 
+    if not attrfilter:
+        attrfilter = esri.AttribsFilterParams('')
+
     if isinstance(datasource, postgis.DataSource):
-        return datasource.filterLayerDataByGeom(lyrinfo, spatfilter)
+        return datasource.filterLayerDataByGeom(lyrinfo, spatfilter, attrfilter)
     else:
         raise TypeError("Only PostGIS datasource availible, '%s' not supported yet" % type(datasource))
 #def layerDataFilterByGeom(datasource, lyrconf, outSR, inpGeom, inpGeomType, spatRel):
-
-
-def layerDataInBox(cur, lyrinfo, outSR, inpBox):
-    """ Obsolete.
-    Return layer data from DB as dictionary formed by Esri spec.
-    Features will be spatially filtered by inpBox.
-
-    spes:
-        http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
-        http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
-
-    example:
-        http://vags101.algis.com/arcgis/rest/services/PATHING/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson
-
-    Args:
-        cur: PostGIS DB connection.cursor;
-        lyrinfo: LayerInfoDB object with
-            LayerInfo.tabname: layer table name;
-            LayerInfo.geomfield: name for table field with geometry;
-            LayerInfo.oidfield: name for field with OBJECTID;
-        outSR: integer from request 'outSR=102100' is srid for projecting geometry data;
-        inpBox: geometry object as json from request 'geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
-
-    Hardcoded args:
-        reference query had additional parameters:
-            returnGeometry=true
-            &geometryType=esriGeometryEnvelope
-            &inSR=102100
-            &spatialRel=esriSpatialRelIntersects
-            &outFields=*
-            &f=json
-    """
-    # srid for projecting data to
-    outSrid = postgis.postgisSRID(outSR)
-
-    # box for spatial filter
-    box = esri.AGGeometryBox(inpBox)
-
-    # output "spatialReference": ...
-    spatialReference = {"wkid": int(outSR), "latestWkid": outSrid}
-
-    # sql query
-    sql = postgis.sqlSelectAllByBox(lyrinfo, outSrid, box)
-#    print sql
-    cur.execute(sql)
-    if cur.rowcount is None or cur.rowcount <= 0:
-        queryRes = {"objectIdFieldName": lyrinfo.oidfield, "globalIdFieldName": "", "features": []}
-    else:
-        #output "fields": [ { "name": "descr",   "alias": "Описание",   "type": "esriFieldTypeString",   "length": 100 },...
-        #  из описания курсора «for rec in cur.description:»
-        fields = postgis.attrFieldsFromDescr(cur, lyrinfo)
-
-        #"geometryType": "esriGeometryPoint",   - из первой же записи выборки, поле «shape»
-        #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
-        geometryType, features = postgis.featuresFromCursor(cur)
-
-        queryRes = {"objectIdFieldName": lyrinfo.oidfield, "globalIdFieldName": "", "geometryType": geometryType,
-            "spatialReference": spatialReference, "fields": fields, "features": features}
-        if cur.rowcount >= 1000:
-            queryRes["exceededTransferLimit"] = True
-
-    return queryRes
-#def layerDataInBox(cur, tabname, geomfield, oidfield, outSR, inpBox):
 
 
 def tests():

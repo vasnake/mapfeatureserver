@@ -102,6 +102,26 @@ class OGCSpatialFilterParams(SpatialFilterParams):
 #class OGCSpatialFilterParams(SpatialFilterParams):
 
 
+class AttribsFilterParams(object):
+    """ Parameters for attributes filter.
+    'where' clause, outputFields list, outputGeometry.
+
+    Description: A where clause for the query filter.
+        Any legal SQL where clause operating on the fields in the layer is allowed.
+    Example: where=POP2000 > 350000
+    http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+
+    TODO: validate input (valid sql clause requered)
+    """
+    def __init__(self, where):
+        """ ArcGIS REST API query parameters.
+        """
+        self.where = where
+        if not where:
+            self.where = '1=1'
+#class AttribsFilterParams(object):
+
+
 class AGGeometryBox(object):
     """ ArcGIS geometry structure for Envelope or Box
     """
@@ -133,8 +153,9 @@ class AGLayerOpQuery(AGLayerOperation):
     """ Feature Server 'query' operation parameters.
 
     http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+    http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000r1000000
 
-    TODO: validate query parameters (SQL injections may be disaster).
+    TODO: validate query parameters (SQL injections may be an disaster).
     """
     def __init__(self, args):
 #        print "query parameters: '%s'" % simplejson.dumps(args)
@@ -191,6 +212,13 @@ class AGLayerOpQuery(AGLayerOperation):
         """
         return self.rawArgs.get('geometry', '')
 #    def geometry(self):
+
+    @property
+    def where(self):
+        """ Get 'where' clause from request params.
+        Return text or ''.
+        """
+        return self.rawArgs.get('where', '')
 #class AGLayerOpQuery(AGLayerOperation):
 
 
