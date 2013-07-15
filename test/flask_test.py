@@ -321,6 +321,23 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         self.assertIn(txt1, data)
         self.assertIn(txt2, data)
         self.assertIn(txt3, data)
+
+
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
+    def testNoGeometryFilter(self):
+        """ Check 'where' w/o geometry filter (/0/query?where...).
+        """
+        txt = u'''"regdaterec": "2012/08/02",
+        "regdaterep": "2012/09/15",
+        "roadcarpet": "Асфальт",
+        "testtimestamp": 1369850940000'''
+        txt = u' '.join(txt.split())
+        rv = self.app.get('''/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson''')
+        data = u' '.join(rv.data.decode(CP).split())
+        self.assertIn(txt, data)
+        err = u'''"error": {'''
+        self.assertNotIn(err, data)
+
 #class MFSFlaskAppTestCase(unittest.TestCase):
 
 

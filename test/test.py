@@ -201,7 +201,7 @@ class LayerDataTests(unittest.TestCase):
 
     @unittest.skipIf(NODB, "haven't DB connection")
     def testLayerDataAttribsFilter(self):
-        """ function layerdata.layerDataFilterByGeom with 'where' clause
+        """ functions layerdata.layerDataFilterBy* with 'where' clause
         returns filtered layer data as dictionary according to
         http://resources.arcgis.com/en/help/rest/apiref/fslayer.html
         http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
@@ -216,6 +216,13 @@ class LayerDataTests(unittest.TestCase):
                                              'esriSpatialRelIntersects')
         attrfilter = esri.AttribsFilterParams("descr='werwre'")
         res = layerdata.layerDataFilterByGeom(ds, lyrinf, spfilter, attrfilter)
+        txt = simplejson.dumps(res, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+#        with open('tmp.json', 'wb') as fh:
+#            fh.write(txt.encode(CP))
+        self.assertIn(u'"descr": "werwre"', txt)
+        self.assertNotIn(u'"testtimestamp": null', txt)
+
+        res = layerdata.layerDataFilterByAttribs(ds, lyrinf, attrfilter)
         txt = simplejson.dumps(res, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
 #        with open('tmp.json', 'wb') as fh:
 #            fh.write(txt.encode(CP))

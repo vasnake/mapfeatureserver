@@ -177,6 +177,56 @@ class DataSource(mfslib.IDataSource):
 
         return queryRes
 #    def filterLayerDataByGeom(self, lyrinfo, outSR, inpGeomWKT, inpGeomSR, spatRel):
+
+
+    def filterLayerDataByAttribs(self, lyrinfo, attrfilter):  #@IgnorePep8
+        """ Answer for client query.
+        Returns layer data from DB. Output formed as dictionary according to Esri spec.
+        Features will be filtered by attrfilter.
+
+        specs:
+            http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+            http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Query_Feature_Service_Layer/02r3000000r1000000/
+
+        query example:
+            http://vdesk.algis.com:5000/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson
+            http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson
+
+        Args:
+            lyrinfo: layermeta.LayerInfo object with
+                LayerInfo.tabname: layer table name;
+                LayerInfo.geomfield: name for table field with geometry;
+                LayerInfo.oidfield: name for field with OBJECTID;
+            attrfilter: esri.AttribsFilterParams with 'where' clause
+        """
+        assert isinstance(lyrinfo, layermeta.LayerInfo)
+        assert isinstance(attrfilter, esri.AttribsFilterParams)
+
+        queryRes = {"objectIdFieldName": lyrinfo.oidfield, "globalIdFieldName": "", "features": []}
+
+        # sql query
+        # TODO: sql builder must use 'outFields' query parameter
+        sql = sqlSelectAllByAttribs(lyrinfo, attrfilter)
+#        print sql
+        cur = self.cursor
+        cur.execute(sql)
+        if not cur.rowcount is None and cur.rowcount > 0:
+            #output "fields": [ { "name": "descr",   "alias": "Описание",   "type": "esriFieldTypeString",   "length": 100 },...
+            #  из описания курсора «for rec in cur.description:»
+            fields = attrFieldsFromDescr(cur, lyrinfo)
+
+            #"geometryType": "esriGeometryPoint",   - из первой же записи выборки, поле «shape»
+            #"features": [   { "attributes": {...,   "geometry": {...   - из результатов запроса.
+#            geometryType, features = featuresFromCursor(cur)
+            unused_gt, features = featuresFromCursor(cur, lyrinfo)
+
+            queryRes.update({"fields": fields, "features": features})
+            if cur.rowcount >= 1000:
+                queryRes["exceededTransferLimit"] = True
+
+        return queryRes
+#    def filterLayerDataByAttribs(self, lyrinfo, attrfilter):
+
 #class DataSource(object):
 
 
@@ -316,7 +366,7 @@ def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid, attrfilter):
     assert isinstance(attrfilter, esri.AttribsFilterParams)
 
     sql = """select *, st_asgeojson(1, st_transform({gcol}::geometry, {outsrid})) as shape
-        from {table} where {attrflt}
+        from {table} where ({attrflt})
           and not st_disjoint(
             {gcol}::geometry,
             ST_transform(
@@ -328,6 +378,31 @@ def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid, attrfilter):
 
     return sql
 #def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, inpGeomWKT, inSrid)
+
+
+def  sqlSelectAllByAttribs(lyrinfo, attrfilter):
+    """ Return SQL text for 'select *, shape ... limit 1000' query with 'intersect' spatial filter.
+    Field 'shape' is st_asgeojson text for geometry field.
+
+    Args:
+        lyrinfo: DBLayerInfo object with
+            LayerInfo.tabname: layer table name;
+            LayerInfo.geomfield: name for table field with geometry;
+            LayerInfo.oidfield: name for field with OBJECTID;
+        attrfilter: esri.AttribsFilterParams with 'where' clause
+    """
+    assert isinstance(lyrinfo, layermeta.DBLayerInfo)
+#    assert isinstance(lyrinfo, layermeta.LayerInfo)
+    assert isinstance(attrfilter, esri.AttribsFilterParams)
+
+    sql = """select *, st_asgeojson(1, {gcol}::geometry) as shape
+        from {table} where ({attrflt})
+        order by {pk} limit 1000;
+        """.format(gcol=lyrinfo.geomfield, table=lyrinfo.tabname,
+            pk=lyrinfo.oidfield, attrflt=attrfilter.where)
+
+    return sql
+#def  sqlSelectAllByAttribs(lyrinfo, attrfilter):
 
 
 def sqlSelectAllByBox(lyrinfo, outSrid, box):

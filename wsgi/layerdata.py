@@ -62,14 +62,18 @@ def layerData(lyrconf, datasource, operation):
         # spatial filter multipolygon or box: '{"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}'
         spatFltParams = esri.SpatialFilterParams(operation.outSR, operation.geometry,
                                                  operation.geomType, operation.spatRelation)
-        if not spatFltParams.isAllSet():
-            raise TypeError("'geometry' parameter is invalid, must be (geometryType, geometry) at least.")
+
         # TODO: extend attribs filter with objectIds, outFields, returnGeometry, returnIdsOnly, returnCountOnly, orderByFields etc.
         # http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000r1000000
         attrFltParams = esri.AttribsFilterParams(operation.where)
 
         if isinstance(datasource, postgis.DataSource):
-            res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams, attrFltParams)
+            if spatFltParams.applicable():
+                res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams, attrFltParams)
+            elif attrFltParams.applicable():
+                res = layerDataFilterByAttribs(datasource, lyrconf, attrFltParams)
+            else:
+                raise TypeError("unsupported query parameters: 'geometry' parameter is invalid along with 'where' parameter")
         else:
             raise TypeError('Unknown datasource')
 
@@ -79,6 +83,36 @@ def layerData(lyrconf, datasource, operation):
     #resJson = json.dumps(res, ensure_ascii=False, sort_keys=True, indent=2)
     return res
 #def layerData(lyrconf, datasource, operation):
+
+
+def layerDataFilterByAttribs(datasource, lyrinfo, attrfilter):
+    """ Return layer data from DB. Output formed as dictionary according to Esri spec.
+    Features will be filtered by attrfilter.
+
+    spes:
+        http://resources.arcgis.com/en/help/rest/apiref/fsquery.html
+        http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Query_Feature_Service_Layer/02r3000000r1000000/
+
+    example:
+        http://vdesk.algis.com:5000/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson
+        http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson
+
+    Args:
+        datasource: postgis.DataSource object;
+        lyrinfo: layermeta.LayerInfo object with
+            LayerInfo.tabname: layer table name;
+            LayerInfo.geomfield: name for table field with geometry;
+            LayerInfo.oidfield: name for field with OBJECTID;
+        attrfilter: esri.AttribsFilterParams with 'where' clause
+    """
+    assert isinstance(lyrinfo, layermeta.LayerInfo)
+    assert isinstance(attrfilter, esri.AttribsFilterParams)
+
+    if isinstance(datasource, postgis.DataSource):
+        return datasource.filterLayerDataByAttribs(lyrinfo, attrfilter)
+    else:
+        raise TypeError("Only PostGIS datasource availible, '%s' not supported yet" % type(datasource))
+#def layerDataFilterByAttribs(datasource, lyrinfo, attrfilter):
 
 
 def layerDataFilterByGeom(datasource, lyrinfo, spatfilter, attrfilter=None):

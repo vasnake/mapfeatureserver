@@ -80,7 +80,7 @@ class SpatialFilterParams(object):
         if not self.spatRel:
             self.spatRel = SpatialRelations.esriSpatialRelIntersects
 
-    def isAllSet(self):
+    def applicable(self):
         """ Check filter parameters
         """
         if not self.spatRel or not self.agsGeom or not self.geomType:
@@ -113,12 +113,21 @@ class AttribsFilterParams(object):
 
     TODO: validate input (valid sql clause requered)
     """
+
     def __init__(self, where):
         """ ArcGIS REST API query parameters.
         """
         self.where = where
         if not where:
             self.where = '1=1'
+
+    def applicable(self):
+        """ Check filter parameters
+        """
+        if not self.where:
+            return False
+        return True
+
 #class AttribsFilterParams(object):
 
 

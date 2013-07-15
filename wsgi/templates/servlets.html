@@ -76,6 +76,14 @@
             выборка мультиполигоном, мин.набор параметров</a>,
             <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/3/query?geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d">
             эталон</a> </li>
+        <li><a href="0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142432%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&where=pthcdeptht+%3C%3d+5&outSR=102100&outFields=*&f=pjson">
+            выборка с дополнительным условием 'where'</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142432%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&where=pthcdeptht+%3C%3d+5&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+        <li><a href="0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson">
+            выборка только по атрибутам (без геометрии)</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson">
+            эталон</a> </li>
         <li><a href="admin/dsn/patching?oidfield=gid&geomfield=geog">сведения о таблице в БД</a></li>
         <li><a href="static/asfalt.png">символ асфальта</a></li>
         <li><a href="static/beton.png">символ бетона</a></li>
