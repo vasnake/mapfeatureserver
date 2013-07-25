@@ -360,6 +360,8 @@ def  sqlSelectAllByWKTGeom(lyrinfo, outSrid, wktGeom, inSrid, attrfilter):
         outSrid: integer, PostGIS srid for output projection;
         wktGeom: OGC WKT geometry for spatial filter;
         attrfilter: esri.AttribsFilterParams with 'where' clause
+
+    TODO: change 'select * ...' to 'select {outfields} ...' and make shure that oid field name going first
     """
     assert isinstance(lyrinfo, layermeta.DBLayerInfo)
 #    assert isinstance(lyrinfo, layermeta.LayerInfo)
@@ -390,6 +392,8 @@ def  sqlSelectAllByAttribs(lyrinfo, attrfilter):
             LayerInfo.geomfield: name for table field with geometry;
             LayerInfo.oidfield: name for field with OBJECTID;
         attrfilter: esri.AttribsFilterParams with 'where' clause
+
+    TODO: change 'select * ...' to 'select {outfields} ...' and make shure that oid field name going first
     """
     assert isinstance(lyrinfo, layermeta.DBLayerInfo)
 #    assert isinstance(lyrinfo, layermeta.LayerInfo)
@@ -534,7 +538,8 @@ def featuresFromCursor(cur, lyrinfo):
     for rec in cur:
 #        print rec
         fitem = {}  # feature attributes, geometry
-        attributes = {}
+        import collections
+        attributes = collections.OrderedDict()
         geometry = {}
 
         for colnum, col in columns(cur.description):

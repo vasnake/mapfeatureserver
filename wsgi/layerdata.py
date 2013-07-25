@@ -72,6 +72,12 @@ def layerData(lyrconf, datasource, operation):
                 res = layerDataFilterByGeom(datasource, lyrconf, spatFltParams, attrFltParams)
             elif attrFltParams.applicable():
                 res = layerDataFilterByAttribs(datasource, lyrconf, attrFltParams)
+                # TODO: returnGeometry:false hack
+#                nogeom = []
+#                for f in res['features']:
+#                    del f['geometry']
+#                    nogeom.append(f)
+#                res['features'] = nogeom
             else:
                 raise TypeError("unsupported query parameters: 'geometry' parameter is invalid along with 'where' parameter")
         else:

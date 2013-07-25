@@ -218,29 +218,30 @@ def layerOperations(layerid=0, operation=''):
 
     f=pjson by default
     """
+    res = {}
     ini = mfslib.getIniData(APP)
     lyrs = mfslib.getLyrsList(ini)
 
     if not (str(layerid) in lyrs and operation == 'query'):
-        resp = esri.errorObject(
+        res = esri.errorObject(
             details=u"Unsupported query parameters: layerid not in %s or operation != 'query'" % lyrs)
-        return makeResponce(resp)
+        return makeResponce(res)
 
     lyrconf = getLayerConfig(str(layerid))
     if not lyrconf.isValid():
-        resp = esri.errorObject(details=u"Layer config not found.")
-        return makeResponce(resp)
+        res = esri.errorObject(details=u"Layer config not found.")
+        return makeResponce(res)
 
     ds = getDataSource()
 
     op = esri.getLyrOperation(operation, request.values)
 
     try:
-        resp = layerdata.layerData(lyrconf, ds, op)
+        res = layerdata.layerData(lyrconf, ds, op)
     except Exception, e:
         traceback.print_exc(file=sys.stderr)
-        resp = esri.errorObject(details=u"Data processing error: %s" % e)
-    return makeResponce(resp)
+        res = esri.errorObject(details=u"Data processing error: %s" % e)
+    return makeResponce(res)
 #def layerOperations(layerid=0, operation=''):
 
 
@@ -300,7 +301,7 @@ def makeResponce(data, frmt='pjson'):
         raise ValueError('format must be json or pjson')
 
 #    text = json.dumps(data, ensure_ascii=False, sort_keys=True, indent=2)
-    text = simplejson.dumps(data, ensure_ascii=False, sort_keys=True, indent=2,
+    text = simplejson.dumps(data, ensure_ascii=False, sort_keys=False, indent=2,
         default=mfslib.jsonify, use_decimal=False)
 
     resp = make_response(text)
@@ -335,7 +336,7 @@ def getDataSource():
     """
     conn = GS.getData('PGCONN')  # http://initd.org/psycopg/docs/usage.html#thread-safety
 #    assert isinstance(conn, postgis.PGConnection)
-    if not conn:
+    if not conn or not isinstance(conn, postgis.PGConnection):
         ini = mfslib.getIniData(APP)
         dsn = ini.get('common', 'PG.DSN')
         conn = postgis.PGConnection(dsn, APP)
