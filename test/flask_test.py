@@ -12,12 +12,14 @@ import sys, os
 import HTMLParser
 import unittest
 #from nose.plugins.skip import SkipTest
+import simplejson
 
 pth = os.path.join(os.path.dirname(__file__), '../wsgi')
 if pth not in sys.path:
     sys.path.insert(0, pth)
 
 import mapfs_controller
+import mfslib
 
 FASTCHECK = False
 DEVDSN = True
@@ -30,6 +32,7 @@ class MFSFlaskAppTestCase(unittest.TestCase):
     def setUp(self):
         mapfs_controller.APP.config['TESTING'] = True
         self.app = mapfs_controller.APP.test_client()
+        self.maxDiff = 300
 
     def tearDown(self):
         pass
@@ -65,10 +68,11 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         '''
         txt = u' '.join(txt.split())
         rv = self.app.get('''/services''')
-        data = ' '.join(rv.data.split())
-
-        self.assertNotIn(err.encode(CP), data)
-        self.assertIn(txt.encode(CP), data)
+        resdict = simplejson.loads(rv.data.decode(CP))
+        restext = simplejson.dumps(resdict, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+        data = ' '.join(restext.split())
+        self.assertNotIn(err, data)
+        self.assertIn(txt, data)
 #    def testServicesList(self):
 
     def testLayersList(self):
@@ -100,11 +104,12 @@ class MFSFlaskAppTestCase(unittest.TestCase):
       "geometry": {
         "x": 3980475.9450405277,
         "y": 6976079.279805333'''
-        #~ txt = txt.replace(',', ', ')
         rv = self.app.get('''/0/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
-        self.assertIn(txt.encode(CP), rv.data)
+        resdict = simplejson.loads(rv.data.decode(CP))
+        restext = simplejson.dumps(resdict, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+        self.assertIn(txt, restext)
         err = u'''"error": {'''
-        self.assertNotIn(err.encode(CP), rv.data)
+        self.assertNotIn(err, restext)
 
 
     @unittest.skipIf(not DEVDSN, "need developer DB DSN")
@@ -141,7 +146,9 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         txt = u' '.join(txt.split())
         # no features
         rv = self.app.get('''/1/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&outSR=102100''')
-        data = ' '.join(rv.data.split())
+        resdict = simplejson.loads(rv.data.decode(CP))
+        restext = simplejson.dumps(resdict, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+        data = ' '.join(restext.split())
         self.assertNotIn(err.encode(CP), rv.data)
         self.assertIn(txt.encode(CP), data)
 #    def testLayer1EmptyRecset(self):
@@ -167,9 +174,11 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         # features > 1000
         rv = self.app.get('''/1/query?geometryType=esriGeometryEnvelope&spatialRel=esriSpatialRelIntersects&geometry={"xmin"%3a-7182265.21424325%2c"ymin"%3a-1567516.84684806%2c"xmax"%3a17864620.2142433%2c"ymax"%3a14321601.0968481%2c"spatialReference"%3a{"wkid"%3a102100}}&outSR=102100''')
         self.assertNotIn(err.encode(CP), rv.data)
-        data = ' '.join(rv.data.split())
-        self.assertIn(txt1.encode(CP), data)
-        self.assertIn(txt2.encode(CP), data)
+        resdict = simplejson.loads(rv.data.decode(CP))
+        restext = simplejson.dumps(resdict, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+        data = ' '.join(restext.split())
+        self.assertIn(txt1, data)
+        self.assertIn(txt2, data)
         self.assertEqual(1000, data.count('"geometry":'))
 #    def testLayer1HugeRecset(self):
 
@@ -274,10 +283,12 @@ class MFSFlaskAppTestCase(unittest.TestCase):
             'outSR': 102100,
             'outFields': '*'}
         rv = self.app.post('/2/query', data=data)
-        res = ' '.join(rv.data.split())
-        self.assertNotIn(err1.encode(CP), res)
-        self.assertIn(txt1.encode(CP), res)
-        self.assertNotIn(txt2.encode(CP), res, "I found a records which must be filtered out (gid: 111)")
+        resdict = simplejson.loads(rv.data.decode(CP))
+        restext = simplejson.dumps(resdict, ensure_ascii=False, sort_keys=True, indent=2, use_decimal=True, default=mfslib.jsonify)
+        res = ' '.join(restext.split())
+        self.assertNotIn(err1, res)
+        self.assertIn(txt1, res)
+        self.assertNotIn(txt2, res, "I found a records which must be filtered out (gid: 111)")
 #    def testPostQuery(self):
 
 

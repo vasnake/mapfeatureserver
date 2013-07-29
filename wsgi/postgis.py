@@ -25,6 +25,7 @@ along with Mapfeatureserver.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 import simplejson
+import collections
 
 import psycopg2
 import psycopg2.extensions  # always unicode output
@@ -538,7 +539,6 @@ def featuresFromCursor(cur, lyrinfo):
     for rec in cur:
 #        print rec
         fitem = {}  # feature attributes, geometry
-        import collections
         attributes = collections.OrderedDict()
         geometry = {}
 
