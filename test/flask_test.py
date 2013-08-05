@@ -349,6 +349,27 @@ class MFSFlaskAppTestCase(unittest.TestCase):
         err = u'''"error": {'''
         self.assertNotIn(err, data)
 
+
+    @unittest.skipIf(not DEVDSN, "need developer DB DSN")
+    def testGidFirst(self):
+        """ Check attributes order (oid first)
+        """
+        txt = u'''"attributes": {
+            "gid":'''
+        err = u'''"error": {'''
+        txt = u' '.join(txt.split())
+        rv = self.app.get('''/0/query?where=1%3D1&f=pjson''')
+        def checkRes():
+            data = u' '.join(rv.data.decode(CP).split())
+            self.assertNotIn(err, data)
+            fcount = data.count(txt)
+            res = simplejson.loads(data)
+            self.assertEqual(fcount, len(res['features']))
+        checkRes()
+        rv = self.app.get('''/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson''')
+        checkRes()
+
+
 #class MFSFlaskAppTestCase(unittest.TestCase):
 
 
