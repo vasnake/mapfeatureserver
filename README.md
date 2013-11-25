@@ -19,7 +19,7 @@ For now, service can serve two kind of requests:
 For data query only subset of arguments be parsed.
 E.g: `http://service/0/query?geometry={"xmin":3907314.1268439,"ymin":6927697.68990079,"xmax":3996369.71947852,"ymax":7001516.67745022,"spatialReference":{"wkid":102100}}&outSR=102100`
 
-Those two types of requests allow using service layers in web maps like
+These two types of requests allow using service layers in web maps like
 [Cartobonus](http://www.allgis.org/cartobonus/help/)
 already. This web maps  builded using ArcGIS Silverlight API.
 By word "using" I meant actions like "add layer to map", "view feature attributes" in popups and table.
@@ -104,15 +104,15 @@ according layer data in 'mfsdata.patching' table, for example.
 
 ## TODO
 
-* Combine Python modules to package, maybe egg. Create MFS distribution.
+* Combine Python modules to package. Create MFS distribution (PyPI).
 * Aliases for layer fields should be readed from layer meta data.
-* [Identify function](http://resources.arcgis.com/en/help/rest/apiref/identify.html) aka 'Инфо' в Картобонус.
-* Edit function for features - [Add Features, Update Features, Delete Features, Apply Edits](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html).
 * Records filtering - [query 'where' clause](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
+* Edit function for features - [Add Features, Update Features, Delete Features, Apply Edits](http://resources.arcgis.com/en/help/rest/apiref/fslayer.html).
 * Features fields list filtering - [query 'outFields' parameter](http://resources.arcgis.com/en/help/rest/apiref/fsquery.html).
 * Source code unittesting and using mock instead of actual DB.
 * Write adapters for layers in MySQL, MongoDB, WFS (Web Feature Service)
 * User interface for loading shape files and creating layers.
+* [Identify function](http://resources.arcgis.com/en/help/rest/apiref/identify.html) aka 'Инфо' в Картобонус.
 
 ## License and restrictions
 
