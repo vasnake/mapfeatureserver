@@ -1,0 +1,107 @@
+{% extends "common.layout.html" %}
+
+<!--
+# -*- mode: html; coding: utf-8 -*-
+# (c) Valik mailto:vasnake@gmail.com
+-->
+
+{% block sidemenu %}
+    <li class="active"><a href="{{ url_for('indexPage') }}">MFS root</a></li>
+    <li><a href="{{ url_for('helpPage') }}">Справка</a></li>
+{% endblock %}
+
+{% block mainblockspan9 %}
+    <h2>Map Feature Server endpoints</h2>
+    <p>
+        Список обслуживаемых страниц и слоев MFS (aka mapfeatureserver), генерируется автоматически по данным конфигурации.
+    </p>
+    <ul>
+        {% for x in lst %}
+            <!-- li> <a href="{{ x[0] }}">{{ x[1]|default(x[0]) }}</a> </li -->
+            {% if not x[1] == '' %}
+                <li> <a href="{{ x[0] }}">{{ x[1] }}</a> </li>
+            {% else %}
+                <li> <a href="{{ x[0] }}">{{ x[0] }}</a> </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <p>Тестовые примеры запросов, отладка характерных комбинаций параметров. Эти примеры работают только на хосте разработчика,
+    ибо только там есть тестовая БД с необходимыми данными.</p>
+    <ul>
+    {% raw %}
+        <li><a href="0?f=pjson">метаданные слоя 0</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0?f=pjson">эталон</a></li>
+        <li><a href="1?f=pjson">метаданные слоя 1</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/1?f=pjson">эталон</a></li>
+        <li><a href="2?f=pjson">метаданные слоя 2</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/2?f=pjson">эталон</a></li>
+
+        <li><a href="0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            выборка фичей слоя 0</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a6593024.93074047%2c%22ymin%22%3a10538006.415246%2c%22xmax%22%3a6641944.62884298%2c%22ymax%22%3a10569039.8487298%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            выборка фичей слоя 1</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a6593024.93074047%2c%22ymin%22%3a10538006.415246%2c%22xmax%22%3a6641944.62884298%2c%22ymax%22%3a10569039.8487298%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            фичей более 1000</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142433%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a{%22wkid%22%3a102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            фичей нет</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/1/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry={%22xmin%22%3A3907314.1268439%2C%22ymin%22%3A6927697.68990079%2C%22xmax%22%3A3996369.71947852%2C%22ymax%22%3A7001516.67745022%2C%22spatialReference%22%3A{%22wkid%22%3A102100}}&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="2/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a4103424.83887823%2c%22ymin%22%3a7491699.58654681%2c%22xmax%22%3a4494782.42369833%2c%22ymax%22%3a7726819.88555201%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            выборка фичей слоя 2</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/2/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a4103424.83887823%2c%22ymin%22%3a7491699.58654681%2c%22xmax%22%3a4494782.42369833%2c%22ymax%22%3a7726819.88555201%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="3/query?returnGeometry=true&geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            выборка фичей мультиполигоном</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/3/query?returnGeometry=true&geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="3/query?geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d">
+            выборка мультиполигоном, мин.набор параметров</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/3/query?geometryType=esriGeometryPolygon&geometry=%7b%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%2c%22rings%22%3a%5b%5b%5b-3580921.90110393%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c15615167.6343221%5d%2c%5b20037508.3427892%2c15615167.6343221%5d%2c%5b20037508.3427892%2c-273950.309374072%5d%2c%5b-3580921.90110393%2c-273950.309374072%5d%5d%2c%5b%5b-20037508.3427892%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c15615167.6343221%5d%2c%5b-18609053.1581958%2c-273950.309374072%5d%2c%5b-20037508.3427892%2c-273950.309374072%5d%5d%5d%7d">
+            эталон</a> </li>
+
+        <li><a href="0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142432%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&where=pthcdeptht+%3C%3d+5&outSR=102100&outFields=*&f=pjson">
+            выборка с дополнительным условием 'where'</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=true&geometryType=esriGeometryEnvelope&geometry=%7b%22xmin%22%3a-7182265.21424325%2c%22ymin%22%3a-1567516.84684806%2c%22xmax%22%3a17864620.2142432%2c%22ymax%22%3a14321601.0968481%2c%22spatialReference%22%3a%7b%22wkid%22%3a102100%7d%7d&inSR=102100&spatialRel=esriSpatialRelIntersects&where=pthcdeptht+%3C%3d+5&outSR=102100&outFields=*&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson">
+            выборка только по атрибутам (без геометрии)</a>,
+            <a href="http://vags101.algis.com/arcgis/rest/services/flyzone/FeatureServer/0/query?returnGeometry=false&spatialRel=esriSpatialRelIntersects&where=1%3D1&outFields=gid%2Cptchlenght%2Cpthcdeptht%2Cdescr%2Cregdaterec%2Cregdaterep%2Croadcarpet%2Ctesttimestamp&f=pjson">
+            эталон</a> </li>
+
+        <li><a href="admin/dsn/patching?oidfield=gid&geomfield=geog">сведения о таблице в БД</a></li>
+        <li><a href="static/asfalt.png">символ асфальта</a></li>
+        <li><a href="static/beton.png">символ бетона</a></li>
+        <li><a href="static/sheben.png">символ щебня</a></li>
+    {% endraw %}
+    </ul>
+    <p class="text">
+        Тестовые веб-карты, для проверки и отладки клиент-серверного взаимодействия.
+        Опять же, работает только на БД разработчика. <br />
+        Код приложений изначально взят из документации
+        <a href="https://developers.arcgis.com/en/javascript/jshelp/inside_feature_layers.html">ArcGIS JS API</a>.
+    </p>
+    <ul>
+        <li><a href="static/test/fl_selectfeatures/index.html">Выбор и подсветка фичей рамочкой.</a></li>
+        <li><a href="static/test/fl_layer_definition/index.html">Фильтрация записей.</a></li>
+        <li><a href="static/test/fl_query_related_multiple/index.html">Связанные записи.</a></li>
+        <li><a href="static/test/ed_default_editingwidget/index.html">Редактирование фичей.</a></li>
+    </ul>
+{% endblock %}
+
+{% block extrascripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "common.layout.html" %}
+
+<!--
+# -*- mode: html; coding: utf-8 -*-
+# (c) Valik mailto:vasnake@gmail.com
+-->
+
+{% block sidemenu %}
+	<li><a href="{{ url_for('indexPage') }}">MFS root</a></li>
+	<li class="active"><a href="{{ url_for('helpPage') }}">Справка</a></li>
+{% endblock %}
+
+{% block mainblockspan9 %}
+	<h2>Документация</h2>
+	<p>
+		 Справочная информация по проекту Map Feature Server (Mapfeatureserver, MFS).
+	</p><p>
+        MFS это свободный (Open Source, GNU license) веб-сервис для замены ArcGIS Server.
+        Уточняю: MFS может заменить ArcGIS Server только в части доступа к данным через ArcGIS Server REST API,
+        подраздел Feature Service.
+    </p><p>
+		Проект начат в день 2013-03-12, хотя
+		<a href="http://vasnake.blogspot.ru/2012/12/web-maps-platform.html">идея возникла несколько раньше</a>.
+		<br />
+		Концепция проекта заключается в том, чтобы, создав специальную серверную программу,
+		дать возможность пользователям
+        <a href="http://resources.arcgis.com/content/web/web-apis">разных вьюверов</a>,
+        умеющих использовать
+        <a href="http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000w6000000">ArcGIS Server REST API</a>, типа
+		<a href="http://www.allgis.org/cartobonus/help/">Картобонус (Cartobonus)</a>,
+		добавлять в свои карты слои данных (FeatureLayer) из любых источников, не только с серверов ArcGIS.
+		<br />
+		Для достижения задуманного, mapfeatureserver должен уметь имитировать ArcGIS Server, а именно - обрабатывать
+        запросы и отвечать на них согласно спецификациям
+		<a href="http://resources.arcgis.com/en/help/rest/apiref/fslayer.html"> ArcGIS Server REST API - Feature Service - Layer</a>.
+		Одним из примеров реализации которых является «родной» сервер ArcGIS, вроде этого:
+		<a href="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/FeatureServer/0">
+        http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSFields/FeatureServer/0</a>
+	</p><p>
+        Подробные сведения о проекте и его применении можно получить изучив файлы README, входящие в состав проекта.
+    </p>
+
+    <ul>
+        <li><a href="https://github.com/vasnake/mapfeatureserver">MFS на GitHub</a></li>
+        <li><a href="http://resources.arcgis.com/en/help/rest/apiref/fslayer.html">Спецификации ArcGIS REST API.</a></li>
+        <li><a href="http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r3000000w6000000">Спецификации более подробно.</a></li>
+        <li><a href="http://vasnake.blogspot.ru/2013/05/mapfeatureserver-poc.html">Статья в блоге автора.</a></li>
+        <li><a href="http://gis-lab.info/qa/mapfeatureserver.html">Статья на ГИС-Лаб.</a></li>
+        <li><a href="http://wiki.gis-lab.info/w/Mapfeatureserver_как_замена_ArcGIS_Server">Статья в вики ГИС-Лаб.</a></li>
+        <li><a href="http://gis-lab.info/forum/viewtopic.php?f=3&t=13731">Обсуждение на форуме.</a></li>
+        <li><a href="http://www.allgis.org/cartobonus/help/">web map viewer Cartobonus.</a></li>
+    </ul>
+
+{% endblock %}
+
+{% block extrascripts %}
+<script type="text/javascript">
+</script>
+{% endblock %}

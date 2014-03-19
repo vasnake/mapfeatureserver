@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+  <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+  on iOS devices-->
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Layer in a map service - [ON-DEMAND]</title>
+
+  <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/dojo/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css" />
+
+  <script>var dojoConfig = { parseOnLoad:true };</script>
+  <script src="http://js.arcgis.com/3.7/"></script>
+  <script>
+
+dojo.require("esri.map");
+dojo.require("esri.layers.FeatureLayer");
+
+var map, selectionToolbar, featureLayer, infoTemplate, fieldsSelectionSymbol;
+
+
+function init() {
+    featureLayer = null;
+    fieldsSelectionSymbol = null;
+    infoTemplate = new esri.InfoTemplate("Attributes", "${*}");
+
+    map = new esri.Map("map", {
+        basemap: "streets",
+        center: [36.2, 52.9],
+        zoom: 9
+    });
+
+    dojo.connect(map, "onLoad", initSelectToolbar);
+} // init
+
+
+function initSelectToolbar(map) {
+    selectionToolbar = new esri.toolbars.Draw(map);
+    var selectQuery = new esri.tasks.Query();
+
+    dojo.connect(selectionToolbar, "onDrawEnd", function(geometry) {
+        selectionToolbar.deactivate();
+        selectQuery.geometry = geometry;
+        if(featureLayer) {
+            featureLayer.selectFeatures(selectQuery, esri.layers.FeatureLayer.SELECTION_NEW);
+        }
+    });
+} // initSelectToolbar
+
+
+function addFeatureLayer(url) {
+    if(featureLayer) {
+        map.removeLayer(featureLayer);
+        featureLayer = null;
+    }
+    fieldsSelectionSymbol = null;
+
+    featureLayer = new esri.layers.FeatureLayer(
+        url,
+        {
+            mode:           esri.layers.FeatureLayer.MODE_ONDEMAND,
+            infoTemplate:   infoTemplate,
+            outFields:      ["*"]
+        }
+    );
+
+    dojo.connect(featureLayer, "onSelectionComplete", featuresSelected);
+    dojo.connect(featureLayer, "onSelectionClear",
+        function(features) {
+            dojo.byId('messages').innerHTML = "<i>No Selected Records</i>";
+            console.dir(features);
+        }
+    );
+
+    map.addLayer(featureLayer);
+    //~ initSelectToolbar(map);
+} // addFeatureLayer
+
+
+function featuresSelected(features) {
+    if(fieldsSelectionSymbol) { ; }
+    else {
+        console.log("featuresSelected, geom type: " + featureLayer.geometryType);
+        fieldsSelectionSymbol = getSelectionSymbol(featureLayer.geometryType);
+        featureLayer.setSelectionSymbol(fieldsSelectionSymbol);
+    }
+
+    var productionSum = 0;
+    //summarize the cummulative gas production to display
+    dojo.forEach(features, function(feature) {
+        productionSum += 1;
+        console.dir(feature);
+    });
+    dojo.byId('messages').innerHTML = "<b>Selected records: " + productionSum + " </b>";
+} // featuresSelected
+
+
+function getSelectionSymbol(geometryType) {
+    // "esriGeometryPoint", "esriGeometryPolygon" or "esriGeometryPolyline".
+    var symb = null;
+    if(geometryType == "esriGeometryPolygon") {
+        symb = new esri.symbol.SimpleFillSymbol();
+        symb.setColor(new dojo.Color([255,255,0,0.5]));
+        symb.setOutline(new esri.symbol.SimpleLineSymbol("dashdot", new dojo.Color([255,0,0]), 2));
+    }
+    else if (geometryType == "esriGeometryPoint") {
+        symb = new esri.symbol.SimpleMarkerSymbol(
+            esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE, //STYLE_CROSS, //STYLE_SQUARE,
+            30,
+            new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([255,0,0]), 1),
+            new dojo.Color([0,255,0,0.25])
+        );
+    }
+    else {
+        symb = new esri.symbol.SimpleLineSymbol(
+            esri.symbol.SimpleLineSymbol.STYLE_DASH,
+            new dojo.Color([255,0,0]), 3);
+    }
+    return symb;
+} // getSelectionSymbol
+
+
+function onClickAddLayer() {
+    require(["dijit/registry", "dojo/on", "dijit/form/TextBox"],
+        function(registry, on, TextBox) {
+            var url = registry.byId("flUrlTextBox").get("value");
+            console.log("onClickAddLayer: " + url);
+            addFeatureLayer(url);
+        }
+    );
+} // onClickAddLayer
+
+
+dojo.ready(init);
+
+  </script>
+
+</head>
+
+<body class="claro">
+  <button data-dojo-type="dijit.form.Button" onClick="selectionToolbar.activate(esri.toolbars.Draw.EXTENT);">Select Fields</button>
+  <button data-dojo-type="dijit.form.Button" onClick="featureLayer.clearSelection();">Clear Selection</button>
+
+    <input type="text" name="flUrlTextBox" id="flUrlTextBox" style="width: 27em;"
+        value="http://vags101.algis.com/arcgis/rest/services/flyzone/MapServer/0"
+        data-dojo-type="dijit/form/TextBox"
+        data-dojo-props="trim:true" />
+    <button data-dojo-type="dijit.form.Button" onClick="onClickAddLayer();">Add layer</button>
+    <br>
+
+  <div id="map" style="position: relative; width:700px; height:500px; border:1px solid #000;"></div>
+
+  <span id="messages"></span>
+</body>
+</html>
